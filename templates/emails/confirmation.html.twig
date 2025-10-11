@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        .email-content {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+        }
+        .email-header {
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .email-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-content">
+        <div class="email-header">
+            <h2>
+                {% if locale == 'en' %}
+                    Thank you for your message!
+                {% elseif locale == 'de' %}
+                    Vielen Dank für Ihre Nachricht!
+                {% else %}
+                    Dziękujemy za wiadomość!
+                {% endif %}
+            </h2>
+        </div>
+
+        {% if locale == 'en' %}
+            <p>Dear {{ name }},</p>
+            <p>Thank you for contacting Part-ner.pl. We have received your message and will respond as soon as possible.</p>
+            <p>Our team typically responds within 24 hours during business days.</p>
+            <p>If you have any urgent questions, please feel free to call us directly.</p>
+            <p style="text-align: center;">
+                <a href="https://part-ner.pl" class="btn">Visit our website</a>
+            </p>
+        {% elseif locale == 'de' %}
+            <p>Liebe/r {{ name }},</p>
+            <p>Vielen Dank für Ihre Kontaktaufnahme mit Part-ner.pl. Wir haben Ihre Nachricht erhalten und werden uns so schnell wie möglich bei Ihnen melden.</p>
+            <p>Unser Team antwortet in der Regel innerhalb von 24 Stunden an Werktagen.</p>
+            <p>Wenn Sie dringende Fragen haben, können Sie uns gerne direkt anrufen.</p>
+            <p style="text-align: center;">
+                <a href="https://part-ner.pl" class="btn">Besuchen Sie unsere Website</a>
+            </p>
+        {% else %}
+            <p>Szanowny/a {{ name }},</p>
+            <p>Dziękujemy za kontakt z Part-ner.pl. Otrzymaliśmy Twoją wiadomość i odpowiemy najszybciej jak to możliwe.</p>
+            <p>Nasz zespół zazwyczaj odpowiada w ciągu 24 godzin w dni robocze.</p>
+            <p>W razie pilnych pytań zapraszamy do kontaktu telefonicznego.</p>
+            <p style="text-align: center;">
+                <a href="https://part-ner.pl" class="btn">Odwiedź naszą stronę</a>
+            </p>
+        {% endif %}
+
+        <div class="email-footer">
+            <p><strong>Part-ner.pl</strong></p>
+            <p>E-mail: kontakt@part-ner.pl | Tel: +48 XXX XXX XXX</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

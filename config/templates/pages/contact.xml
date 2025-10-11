@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>contact</key>
+
+    <view>pages/contact</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">Kontakt</title>
+        <title lang="en">Contact</title>
+        <title lang="de">Kontakt</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="description" type="text_editor">
+            <meta>
+                <title lang="pl">Opis</title>
+                <title lang="en">Description</title>
+                <title lang="de">Beschreibung</title>
+            </meta>
+        </property>
+
+        <!-- Contact Information -->
+        <section name="contact_info">
+            <meta>
+                <title lang="pl">Dane kontaktowe</title>
+                <title lang="en">Contact information</title>
+                <title lang="de">Kontaktinformationen</title>
+            </meta>
+
+            <properties>
+                <property name="company_name" type="text_line">
+                    <meta>
+                        <title lang="pl">Nazwa firmy</title>
+                        <title lang="en">Company name</title>
+                        <title lang="de">Firmenname</title>
+                    </meta>
+                </property>
+
+                <property name="address" type="text_area">
+                    <meta>
+                        <title lang="pl">Adres</title>
+                        <title lang="en">Address</title>
+                        <title lang="de">Adresse</title>
+                    </meta>
+                </property>
+
+                <property name="phone" type="text_line">
+                    <meta>
+                        <title lang="pl">Telefon</title>
+                        <title lang="en">Phone</title>
+                        <title lang="de">Telefon</title>
+                    </meta>
+                </property>
+
+                <property name="email" type="text_line">
+                    <meta>
+                        <title lang="pl">E-mail</title>
+                        <title lang="en">E-mail</title>
+                        <title lang="de">E-Mail</title>
+                    </meta>
+                </property>
+
+                <property name="working_hours" type="text_area">
+                    <meta>
+                        <title lang="pl">Godziny otwarcia</title>
+                        <title lang="en">Working hours</title>
+                        <title lang="de">Öffnungszeiten</title>
+                    </meta>
+                </property>
+
+                <property name="map_embed" type="text_area">
+                    <meta>
+                        <title lang="pl">Kod embed mapy (Google Maps iframe)</title>
+                        <title lang="en">Map embed code (Google Maps iframe)</title>
+                        <title lang="de">Karteneinbettungscode (Google Maps iframe)</title>
+                    </meta>
+                </property>
+
+            </properties>
+        </section>
+
+        <!-- Form Recipients -->
+        <property name="form_recipient" type="text_line">
+            <meta>
+                <title lang="pl">Odbiorca formularza (email)</title>
+                <title lang="en">Form recipient (email)</title>
+                <title lang="de">Formularempfänger (E-Mail)</title>
+            </meta>
+        </property>
+    </properties>
+</template>

@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>product-list</key>
+
+    <view>pages/product-list</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">Lista produktów</title>
+        <title lang="en">Product listing</title>
+        <title lang="de">Produktliste</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.search.field" role="title"/>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="description" type="text_editor">
+            <meta>
+                <title lang="pl">Opis kategorii</title>
+                <title lang="en">Category description</title>
+                <title lang="de">Kategoriebeschreibung</title>
+            </meta>
+            <tag name="sulu.search.field"/>
+        </property>
+
+        <property name="category_image" type="single_media_selection">
+            <meta>
+                <title lang="pl">Zdjęcie kategorii</title>
+                <title lang="en">Category image</title>
+                <title lang="de">Kategoriebild</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
+        <!-- Automatyczne pobieranie produktów z podstron -->
+        <property name="products" type="smart_content">
+            <meta>
+                <title lang="pl">Produkty</title>
+                <title lang="en">Products</title>
+                <title lang="de">Produkte</title>
+            </meta>
+            <params>
+                <param name="provider" value="pages"/>
+                <param name="page_parameter" value="page"/>
+                <param name="properties" type="collection">
+                    <param name="product" type="collection">
+                        <param name="title" value="title"/>
+                        <param name="subtitle" value="subtitle"/>
+                        <param name="images" value="images"/>
+                        <param name="short_description" value="short_description"/>
+                    </param>
+                </param>
+                <param name="present_as" type="collection">
+                    <param name="two">
+                        <meta>
+                            <title lang="pl">Dwie kolumny</title>
+                            <title lang="en">Two columns</title>
+                            <title lang="de">Zwei Spalten</title>
+                        </meta>
+                    </param>
+                    <param name="three">
+                        <meta>
+                            <title lang="pl">Trzy kolumny</title>
+                            <title lang="en">Three columns</title>
+                            <title lang="de">Drei Spalten</title>
+                        </meta>
+                    </param>
+                    <param name="four">
+                        <meta>
+                            <title lang="pl">Cztery kolumny</title>
+                            <title lang="en">Four columns</title>
+                            <title lang="de">Vier Spalten</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="display_subcategories" type="checkbox">
+            <meta>
+                <title lang="pl">Wyświetl podkategorie</title>
+                <title lang="en">Display subcategories</title>
+                <title lang="de">Unterkategorien anzeigen</title>
+            </meta>
+        </property>
+    </properties>
+</template>

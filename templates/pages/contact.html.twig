@@ -1,0 +1,339 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    {# Page Title #}
+    <div class="page-title-wrap typo-white">
+        <div class="page-title-wrap-inner section-bg-dark-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li><a href="{{ sulu_content_root_path() }}">{{ 'navigation.home'|trans }}</a></li>
+                            <li class="active">{{ content.title }}</li>
+                        </ol>
+                        <h1 class="page-title">{{ content.title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Description #}
+    {% if content.description %}
+        <section class="section-wrap pt-80 pb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                        <div class="contact-description">
+                            {{ content.description|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Contact Information & Form #}
+    <section class="section-wrap pb-80 {% if not content.description %}pt-80{% else %}pt-40{% endif %}">
+        <div class="container">
+            <div class="row">
+
+                {# Contact Information #}
+                <div class="col-md-4 mb-50">
+                    <div class="contact-info">
+                        <h3 class="uppercase mb-30">{{ 'contact.info'|trans }}</h3>
+
+                        {% if content.company_name %}
+                            <div class="contact-info-item">
+                                <i class="ti-home"></i>
+                                <div>
+                                    <strong>{{ content.company_name }}</strong>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if content.address %}
+                            <div class="contact-info-item">
+                                <i class="ti-location-pin"></i>
+                                <div>
+                                    <strong>{{ 'contact.address'|trans }}</strong><br>
+                                    {{ content.address|nl2br }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if content.phone %}
+                            <div class="contact-info-item">
+                                <i class="ti-mobile"></i>
+                                <div>
+                                    <strong>{{ 'contact.phone'|trans }}</strong><br>
+                                    <a href="tel:{{ content.phone|replace({' ': '', '-': ''}) }}">{{ content.phone }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if content.email %}
+                            <div class="contact-info-item">
+                                <i class="ti-email"></i>
+                                <div>
+                                    <strong>{{ 'contact.email'|trans }}</strong><br>
+                                    <a href="mailto:{{ content.email }}">{{ content.email }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if content.working_hours %}
+                            <div class="contact-info-item">
+                                <i class="ti-time"></i>
+                                <div>
+                                    <strong>{{ 'contact.working_hours'|trans }}</strong><br>
+                                    {{ content.working_hours|nl2br }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Contact Form #}
+                <div class="col-md-8 mb-50">
+                    <h3 class="uppercase mb-30">{{ 'contact.send_message'|trans }}</h3>
+
+                    <form class="contact-form" method="post" action="{{ path('contact_form_submit') }}" id="contactForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="name"
+                                           placeholder="{{ 'contact.form.name'|trans }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="email"
+                                           placeholder="{{ 'contact.form.email'|trans }}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="phone"
+                                           placeholder="{{ 'contact.form.phone'|trans }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="company"
+                                           placeholder="{{ 'contact.form.company'|trans }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="subject"
+                                   placeholder="{{ 'contact.form.subject'|trans }}" required>
+                        </div>
+
+                        <div class="form-group">
+                        <textarea class="form-control" name="message" rows="7"
+                                  placeholder="{{ 'contact.form.message'|trans }}" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="gdpr" required>
+                                    {{ 'contact.form.gdpr'|trans }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="recipient" value="{{ content.form_recipient }}">
+                        <input type="hidden" name="locale" value="{{ app.request.locale }}">
+
+                        <button type="submit" class="btn btn-lg btn-dark btn-submit">
+                            <i class="ti-email"></i> {{ 'contact.form.send'|trans }}
+                        </button>
+
+                        <div class="form-message mt-20"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {# Map #}
+    {% if content.map_embed %}
+        <section class="section-wrap p-0">
+            <div class="google-map">
+                {{ content.map_embed|raw }}
+            </div>
+        </section>
+    {% endif %}
+
+    <style>
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info-item i {
+            font-size: 24px;
+            color: #667eea;
+            margin-right: 20px;
+            margin-top: 3px;
+        }
+
+        .contact-info-item a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-item a:hover {
+            color: #667eea;
+        }
+
+        .contact-form .form-control {
+            height: 50px;
+            border: 2px solid #eee;
+            padding: 0 20px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form textarea.form-control {
+            height: auto;
+            padding: 15px 20px;
+        }
+
+        .contact-form .form-control:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .contact-form .btn-submit {
+            position: relative;
+        }
+
+        .contact-form .btn-submit.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .contact-form .btn-submit.loading:after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            right: 20px;
+            margin-top: -8px;
+            border: 2px solid white;
+            border-radius: 50%;
+            border-right-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-message .alert {
+            margin-top: 20px;
+        }
+
+        .google-map {
+            width: 100%;
+            height: 450px;
+        }
+
+        .google-map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .checkbox label {
+            font-weight: normal;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var submitBtn = form.find('.btn-submit');
+                var formMessage = form.find('.form-message');
+
+                // Validation
+                var isValid = true;
+                form.find('[required]').each(function() {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        $(this).addClass('error');
+                    } else {
+                        $(this).removeClass('error');
+                    }
+                });
+
+                if (!isValid) {
+                    formMessage.html('<div class="alert alert-danger">{{ 'contact.form.error_required'|trans }}</div>');
+                    return false;
+                }
+
+                // Show loading
+                submitBtn.addClass('loading');
+                formMessage.html('');
+
+                // Submit via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(response) {
+                        submitBtn.removeClass('loading');
+                        formMessage.html('<div class="alert alert-success"><i class="ti-check"></i> {{ 'contact.form.success'|trans }}</div>');
+                        form[0].reset();
+
+                        // Scroll to message
+                        $('html, body').animate({
+                            scrollTop: formMessage.offset().top - 100
+                        }, 500);
+                    },
+                    error: function(xhr, status, error) {
+                        submitBtn.removeClass('loading');
+                        formMessage.html('<div class="alert alert-danger"><i class="ti-close"></i> {{ 'contact.form.error_send'|trans }}</div>');
+                    }
+                });
+            });
+
+            // Remove error class on input
+            $('#contactForm [required]').on('input change', function() {
+                $(this).removeClass('error');
+            });
+
+            // Pre-fill product if from product page
+            var urlParams = new URLSearchParams(window.location.search);
+            var product = urlParams.get('product');
+            if (product) {
+                $('#contactForm input[name="subject"]').val('{{ 'contact.form.inquiry_about'|trans }}: ' + product);
+            }
+        });
+    </script>
+
+{% endblock %}

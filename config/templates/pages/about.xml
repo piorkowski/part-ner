@@ -1,0 +1,168 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>about</key>
+
+    <view>pages/about</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">O nas</title>
+        <title lang="en">About us</title>
+        <title lang="de">Über uns</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="pl">Podtytuł</title>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
+        <property name="content" type="text_editor">
+            <meta>
+                <title lang="pl">Treść</title>
+                <title lang="en">Content</title>
+                <title lang="de">Inhalt</title>
+            </meta>
+            <tag name="sulu.search.field"/>
+        </property>
+
+        <!-- Team Members -->
+        <property name="team_members" type="block">
+            <meta>
+                <title lang="pl">Członkowie zespołu</title>
+                <title lang="en">Team members</title>
+                <title lang="de">Teammitglieder</title>
+            </meta>
+
+            <types>
+                <type name="member">
+                    <meta>
+                        <title lang="pl">Członek zespołu</title>
+                        <title lang="en">Team member</title>
+                        <title lang="de">Teammitglied</title>
+                    </meta>
+
+                    <properties>
+                        <property name="photo" type="single_media_selection">
+                            <meta>
+                                <title lang="pl">Zdjęcie</title>
+                                <title lang="en">Photo</title>
+                                <title lang="de">Foto</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                            </params>
+                        </property>
+
+                        <property name="name" type="text_line" mandatory="true">
+                            <meta>
+                                <title lang="pl">Imię i nazwisko</title>
+                                <title lang="en">Name</title>
+                                <title lang="de">Name</title>
+                            </meta>
+                        </property>
+
+                        <property name="position" type="text_line">
+                            <meta>
+                                <title lang="pl">Stanowisko</title>
+                                <title lang="en">Position</title>
+                                <title lang="de">Position</title>
+                            </meta>
+                        </property>
+
+                        <property name="bio" type="text_area">
+                            <meta>
+                                <title lang="pl">Biografia</title>
+                                <title lang="en">Biography</title>
+                                <title lang="de">Biografie</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <!-- Company Values/Advantages -->
+        <property name="advantages" type="block">
+            <meta>
+                <title lang="pl">Nasze zalety</title>
+                <title lang="en">Our advantages</title>
+                <title lang="de">Unsere Vorteile</title>
+            </meta>
+
+            <types>
+                <type name="advantage">
+                    <meta>
+                        <title lang="pl">Zaleta</title>
+                        <title lang="en">Advantage</title>
+                        <title lang="de">Vorteil</title>
+                    </meta>
+
+                    <properties>
+                        <property name="icon" type="text_line">
+                            <meta>
+                                <title lang="pl">Ikona</title>
+                                <title lang="en">Icon</title>
+                                <title lang="de">Symbol</title>
+                            </meta>
+                        </property>
+
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+
+                        <property name="description" type="text_area">
+                            <meta>
+                                <title lang="pl">Opis</title>
+                                <title lang="en">Description</title>
+                                <title lang="de">Beschreibung</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <property name="client_logos" type="media_selection">
+            <meta>
+                <title lang="pl">Loga klientów</title>
+                <title lang="en">Client logos</title>
+                <title lang="de">Kundenlogos</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+    </properties>
+</template>

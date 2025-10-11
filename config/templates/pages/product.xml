@@ -1,0 +1,248 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>product</key>
+
+    <view>pages/product</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">Produkt</title>
+        <title lang="en">Product</title>
+        <title lang="de">Produkt</title>
+    </meta>
+
+    <properties>
+        <!-- Podstawowe informacje -->
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Nazwa produktu</title>
+                <title lang="en">Product name</title>
+                <title lang="de">Produktname</title>
+            </meta>
+            <tag name="sulu.search.field" role="title"/>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="pl">Podtytuł</title>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
+        <property name="product_code" type="text_line">
+            <meta>
+                <title lang="pl">Kod produktu</title>
+                <title lang="en">Product code</title>
+                <title lang="de">Produktcode</title>
+            </meta>
+        </property>
+
+        <!-- Galeria zdjęć -->
+        <property name="images" type="media_selection">
+            <meta>
+                <title lang="pl">Galeria zdjęć</title>
+                <title lang="en">Image gallery</title>
+                <title lang="de">Bildergalerie</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+                <param name="minLinks" value="1"/>
+            </params>
+        </property>
+
+        <!-- Opis produktu -->
+        <property name="description" type="text_editor">
+            <meta>
+                <title lang="pl">Opis produktu</title>
+                <title lang="en">Product description</title>
+                <title lang="de">Produktbeschreibung</title>
+            </meta>
+            <tag name="sulu.search.field"/>
+        </property>
+
+        <property name="short_description" type="text_area">
+            <meta>
+                <title lang="pl">Krótki opis</title>
+                <title lang="en">Short description</title>
+                <title lang="de">Kurzbeschreibung</title>
+            </meta>
+        </property>
+
+        <!-- Specyfikacja techniczna -->
+        <section name="specifications">
+            <meta>
+                <title lang="pl">Specyfikacja techniczna</title>
+                <title lang="en">Technical specifications</title>
+                <title lang="de">Technische Spezifikationen</title>
+            </meta>
+
+            <properties>
+                <property name="specifications" type="text_editor">
+                    <meta>
+                        <title lang="pl">Specyfikacja</title>
+                        <title lang="en">Specifications</title>
+                        <title lang="de">Spezifikationen</title>
+                    </meta>
+                </property>
+
+                <property name="technical_data" type="block">
+                    <meta>
+                        <title lang="pl">Dane techniczne (tabela)</title>
+                        <title lang="en">Technical data (table)</title>
+                        <title lang="de">Technische Daten (Tabelle)</title>
+                    </meta>
+
+                    <types>
+                        <type name="data_row">
+                            <meta>
+                                <title lang="pl">Wiersz danych</title>
+                                <title lang="en">Data row</title>
+                                <title lang="de">Datenzeile</title>
+                            </meta>
+
+                            <properties>
+                                <property name="label" type="text_line" mandatory="true">
+                                    <meta>
+                                        <title lang="pl">Etykieta</title>
+                                        <title lang="en">Label</title>
+                                        <title lang="de">Bezeichnung</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Dokumenty PDF -->
+        <section name="documents">
+            <meta>
+                <title lang="pl">Dokumenty</title>
+                <title lang="en">Documents</title>
+                <title lang="de">Dokumente</title>
+            </meta>
+
+            <properties>
+                <property name="documents" type="block">
+                    <meta>
+                        <title lang="pl">Dokumenty do pobrania</title>
+                        <title lang="en">Downloadable documents</title>
+                        <title lang="de">Herunterladbare Dokumente</title>
+                    </meta>
+
+                    <types>
+                        <type name="document">
+                            <meta>
+                                <title lang="pl">Dokument</title>
+                                <title lang="en">Document</title>
+                                <title lang="de">Dokument</title>
+                            </meta>
+
+                            <properties>
+                                <property name="file" type="single_media_selection" mandatory="true">
+                                    <meta>
+                                        <title lang="pl">Plik PDF</title>
+                                        <title lang="en">PDF file</title>
+                                        <title lang="de">PDF-Datei</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="document"/>
+                                    </params>
+                                </property>
+
+                                <property name="document_type" type="select">
+                                    <meta>
+                                        <title lang="pl">Typ dokumentu</title>
+                                        <title lang="en">Document type</title>
+                                        <title lang="de">Dokumenttyp</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="manual">
+                                                <meta>
+                                                    <title lang="pl">Instrukcja obsługi</title>
+                                                    <title lang="en">User manual</title>
+                                                    <title lang="de">Bedienungsanleitung</title>
+                                                </meta>
+                                            </param>
+                                            <param name="certificate">
+                                                <meta>
+                                                    <title lang="pl">Certyfikat</title>
+                                                    <title lang="en">Certificate</title>
+                                                    <title lang="de">Zertifikat</title>
+                                                </meta>
+                                            </param>
+                                            <param name="datasheet">
+                                                <meta>
+                                                    <title lang="pl">Karta katalogowa</title>
+                                                    <title lang="en">Datasheet</title>
+                                                    <title lang="de">Datenblatt</title>
+                                                </meta>
+                                            </param>
+                                            <param name="drawing">
+                                                <meta>
+                                                    <title lang="pl">Rysunek techniczny</title>
+                                                    <title lang="en">Technical drawing</title>
+                                                    <title lang="de">Technische Zeichnung</title>
+                                                </meta>
+                                            </param>
+                                            <param name="other">
+                                                <meta>
+                                                    <title lang="pl">Inny</title>
+                                                    <title lang="en">Other</title>
+                                                    <title lang="de">Sonstiges</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="pl">Tytuł dokumentu</title>
+                                        <title lang="en">Document title</title>
+                                        <title lang="de">Dokumenttitel</title>
+                                    </meta>
+                                </property>
+
+                                <property name="description" type="text_area">
+                                    <meta>
+                                        <title lang="pl">Opis dokumentu</title>
+                                        <title lang="en">Document description</title>
+                                        <title lang="de">Dokumentbeschreibung</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Powiązane produkty -->
+        <property name="related_products" type="page_selection">
+            <meta>
+                <title lang="pl">Powiązane produkty</title>
+                <title lang="en">Related products</title>
+                <title lang="de">Verwandte Produkte</title>
+            </meta>
+        </property>
+    </properties>
+</template>

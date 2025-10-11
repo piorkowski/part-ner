@@ -1,0 +1,337 @@
+{% extends "base.html.twig" %}
+
+{% block body_class %}{% endblock %}
+
+{% block title %}{{ content.title }} - Part-ner{% endblock %}
+
+{% block content %}
+
+    {# Hero Section #}
+    <section class="hero hero-shop" {% if content.hero_image %}style="background-image: url('{{ content.hero_image.url }}');"{% endif %}>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="hero-content">
+                        {% if content.hero_title %}
+                            <h1 class="hero-title">{{ content.hero_title }}</h1>
+                        {% endif %}
+                        {% if content.hero_subtitle %}
+                            <p class="hero-subtitle">{{ content.hero_subtitle }}</p>
+                        {% endif %}
+                        {% if content.hero_cta_text and content.hero_cta_link %}
+                            <a href="{{ sulu_content_path(content.hero_cta_link.id) }}" class="btn btn-lg btn-color">
+                                {{ content.hero_cta_text }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Content Blocks #}
+    {% if content.content_blocks %}
+        {% for block in content.content_blocks %}
+
+            {# Text + Image Block #}
+            {% if block.type == 'text_image' %}
+                <section class="section-wrap pb-40 pt-80">
+                    <div class="container">
+                        <div class="row">
+                            {% if block.image_position == 'left' %}
+                                <div class="col-md-6 mb-50">
+                                    <img src="{{ block.image.thumbnails['800x600'] }}" alt="{{ block.title }}" class="img-responsive">
+                                </div>
+                                <div class="col-md-6 mb-50">
+                                    <h2 class="uppercase mb-30">{{ block.title }}</h2>
+                                    <div class="text-content">
+                                        {{ block.text|raw }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="col-md-6 mb-50">
+                                    <h2 class="uppercase mb-30">{{ block.title }}</h2>
+                                    <div class="text-content">
+                                        {{ block.text|raw }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-50">
+                                    <img src="{{ block.image.thumbnails['800x600'] }}" alt="{{ block.title }}" class="img-responsive">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {# Features Block #}
+            {% if block.type == 'features' %}
+                <section class="section-wrap pb-40 pt-80 bg-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center mb-50">
+                                <h2 class="uppercase">{{ block.title }}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for feature in block.features_list %}
+                                {% if feature.type == 'feature' %}
+                                    <div class="col-md-3 col-sm-6 mb-40">
+                                        <div class="feature-box text-center">
+                                            {% if feature.icon %}
+                                                <i class="{{ feature.icon }} feature-icon"></i>
+                                            {% endif %}
+                                            <h3 class="feature-title">{{ feature.title }}</h3>
+                                            <p>{{ feature.description }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
+    {# Featured Products #}
+    {% if content.featured_products %}
+        <section class="section-wrap pt-80 pb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center mb-50">
+                        <h2 class="uppercase">{{ 'homepage.featured_products'|trans }}</h2>
+                        <p class="subheading">{{ 'homepage.featured_subtitle'|trans }}</p>
+                    </div>
+                </div>
+
+                <div class="row products-grid">
+                    {% for product in content.featured_products %}
+                        <div class="col-md-3 col-sm-6 mb-30">
+                            <div class="product-item hover-trigger">
+                                <div class="product-img">
+                                    <a href="{{ sulu_content_path(product.id) }}">
+                                        {% if product.images is defined and product.images[0] %}
+                                            <img src="{{ product.images[0].thumbnails['400x400'] }}" alt="{{ product.title }}">
+                                            {% if product.images[1] %}
+                                                <img src="{{ product.images[1].thumbnails['400x400'] }}" alt="{{ product.title }}" class="product-img-back">
+                                            {% endif %}
+                                        {% else %}
+                                            <img src="{{ asset('build/images/placeholder-product.jpg') }}" alt="{{ product.title }}">
+                                        {% endif %}
+                                    </a>
+                                    <div class="product-item-actions hover-target">
+                                        <a href="{{ sulu_content_path(product.id) }}" class="btn btn-md btn-dark">
+                                            <i class="ti-eye"></i> {{ 'product.view_details'|trans }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="product-item-details">
+                                    <h3 class="product-item-name">
+                                        <a href="{{ sulu_content_path(product.id) }}">{{ product.title }}</a>
+                                    </h3>
+                                    {% if product.subtitle is defined %}
+                                        <span class="product-category">{{ product.subtitle }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {# Link do wszystkich produktów #}
+                <div class="row">
+                    <div class="col-md-12 text-center mt-30">
+                        <a href="{{ sulu_content_path('products') }}" class="btn btn-lg btn-dark">
+                            {{ 'homepage.view_all_products'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Client Logos #}
+    {% if content.client_logos %}
+        <section class="section-wrap pb-40 pt-80 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="client-logos-carousel owl-carousel">
+                            {% for logo in content.client_logos %}
+                                <div class="client-logo">
+                                    <img src="{{ logo.thumbnails['200x100'] }}" alt="{{ logo.title }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Call to Action #}
+    <section class="section-wrap cta-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <h2 class="cta-title">{{ 'homepage.cta_title'|trans }}</h2>
+                    <p class="cta-subtitle">{{ 'homepage.cta_subtitle'|trans }}</p>
+                    <a href="{{ sulu_content_path('contact') }}" class="btn btn-lg btn-color">
+                        {{ 'homepage.contact_us'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .hero {
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .feature-box {
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .product-img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-item:hover .product-img-back {
+            opacity: 1;
+        }
+
+        .product-item-actions {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hover-trigger:hover .hover-target {
+            opacity: 1;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .cta-title {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .cta-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .client-logo {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .client-logo img {
+            max-height: 60px;
+            width: auto;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .client-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize client logos carousel
+            $('.client-logos-carousel').owlCarousel({
+                items: 5,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                nav: false,
+                dots: false,
+                responsive: {
+                    0: { items: 2 },
+                    600: { items: 3 },
+                    1000: { items: 5 }
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

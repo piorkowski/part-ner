@@ -1,0 +1,257 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>homepage</key>
+
+    <view>pages/homepage</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">Strona główna</title>
+        <title lang="en">Homepage</title>
+        <title lang="de">Startseite</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <!-- Hero Section -->
+        <section name="hero">
+            <meta>
+                <title lang="pl">Sekcja Hero</title>
+                <title lang="en">Hero Section</title>
+                <title lang="de">Hero-Bereich</title>
+            </meta>
+
+            <properties>
+                <property name="hero_title" type="text_line">
+                    <meta>
+                        <title lang="pl">Tytuł Hero</title>
+                        <title lang="en">Hero Title</title>
+                        <title lang="de">Hero-Titel</title>
+                    </meta>
+                </property>
+
+                <property name="hero_subtitle" type="text_area">
+                    <meta>
+                        <title lang="pl">Podtytuł Hero</title>
+                        <title lang="en">Hero Subtitle</title>
+                        <title lang="de">Hero-Untertitel</title>
+                    </meta>
+                </property>
+
+                <property name="hero_image" type="single_media_selection">
+                    <meta>
+                        <title lang="pl">Zdjęcie tła</title>
+                        <title lang="en">Background image</title>
+                        <title lang="de">Hintergrundbild</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                    </params>
+                </property>
+
+                <property name="hero_cta_text" type="text_line">
+                    <meta>
+                        <title lang="pl">Tekst przycisku CTA</title>
+                        <title lang="en">CTA button text</title>
+                        <title lang="de">CTA-Button-Text</title>
+                    </meta>
+                </property>
+
+                <property name="hero_cta_link" type="single_page_selection">
+                    <meta>
+                        <title lang="pl">Link przycisku CTA</title>
+                        <title lang="en">CTA button link</title>
+                        <title lang="de">CTA-Button-Link</title>
+                    </meta>
+                </property>
+            </properties>
+
+        </section>
+
+        <!-- Featured Products -->
+        <property name="featured_products" type="page_selection">
+            <meta>
+                <title lang="pl">Wyróżnione produkty</title>
+                <title lang="en">Featured products</title>
+                <title lang="de">Empfohlene Produkte</title>
+            </meta>
+            <params>
+                <param name="max" value="8"/>
+            </params>
+        </property>
+
+        <!-- Content Blocks -->
+        <property name="content_blocks" type="block">
+            <meta>
+                <title lang="pl">Bloki treści</title>
+                <title lang="en">Content blocks</title>
+                <title lang="de">Inhaltsblöcke</title>
+            </meta>
+
+            <types>
+                <type name="text_image">
+                    <meta>
+                        <title lang="pl">Tekst + Zdjęcie</title>
+                        <title lang="en">Text + Image</title>
+                        <title lang="de">Text + Bild</title>
+                    </meta>
+
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+
+                        <property name="text" type="text_editor">
+                            <meta>
+                                <title lang="pl">Tekst</title>
+                                <title lang="en">Text</title>
+                                <title lang="de">Text</title>
+                            </meta>
+                        </property>
+
+                        <property name="image" type="single_media_selection">
+                            <meta>
+                                <title lang="pl">Zdjęcie</title>
+                                <title lang="en">Image</title>
+                                <title lang="de">Bild</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                            </params>
+                        </property>
+
+                        <property name="image_position" type="select">
+                            <meta>
+                                <title lang="pl">Pozycja zdjęcia</title>
+                                <title lang="en">Image position</title>
+                                <title lang="de">Bildposition</title>
+                            </meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="left">
+                                        <meta>
+                                            <title lang="pl">Po lewej</title>
+                                            <title lang="en">Left</title>
+                                            <title lang="de">Links</title>
+                                        </meta>
+                                    </param>
+                                    <param name="right">
+                                        <meta>
+                                            <title lang="pl">Po prawej</title>
+                                            <title lang="en">Right</title>
+                                            <title lang="de">Rechts</title>
+                                        </meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+
+                <type name="features">
+                    <meta>
+                        <title lang="pl">Zalety/Cechy</title>
+                        <title lang="en">Features</title>
+                        <title lang="de">Merkmale</title>
+                    </meta>
+
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł sekcji</title>
+                                <title lang="en">Section title</title>
+                                <title lang="de">Abschnittstitel</title>
+                            </meta>
+                        </property>
+
+                        <property name="features_list" type="block">
+                            <meta>
+                                <title lang="pl">Lista cech</title>
+                                <title lang="en">Features list</title>
+                                <title lang="de">Merkmalsliste</title>
+                            </meta>
+
+                            <types>
+                                <type name="feature">
+                                    <meta>
+                                        <title lang="pl">Cecha</title>
+                                        <title lang="en">Feature</title>
+                                        <title lang="de">Merkmal</title>
+                                    </meta>
+
+                                    <properties>
+                                        <property name="icon" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Ikona (np. ti-desktop)</title>
+                                                <title lang="en">Icon (e.g. ti-desktop)</title>
+                                                <title lang="de">Symbol (z.B. ti-desktop)</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="title" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Tytuł</title>
+                                                <title lang="en">Title</title>
+                                                <title lang="de">Titel</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="description" type="text_area">
+                                            <meta>
+                                                <title lang="pl">Opis</title>
+                                                <title lang="en">Description</title>
+                                                <title lang="de">Beschreibung</title>
+                                            </meta>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <!-- Client Logos -->
+        <property name="client_logos" type="media_selection">
+            <meta>
+                <title lang="pl">Loga klientów/partnerów</title>
+                <title lang="en">Client/Partner logos</title>
+                <title lang="de">Kunden-/Partnerlogos</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+    </properties>
+</template>
