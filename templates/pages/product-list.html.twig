@@ -37,36 +37,6 @@
                 </div>
             {% endif %}
 
-            {# Podkategorie jeśli są - POPRAWIONE #}
-            {% if content.display_subcategories %}
-                {% set parent = sulu_content_load_parent(content.id) %}
-                {% if parent and parent.children %}
-                    <div class="row mb-50">
-                        <div class="col-md-12">
-                            <h3 class="uppercase mb-30">{{ 'product.categories'|trans }}</h3>
-                        </div>
-                        {% for subcategory in parent.children %}
-                            {% if subcategory.template == 'product-list' %}
-                                <div class="col-md-4 col-sm-6 mb-30">
-                                    <div class="category-item">
-                                        <a href="{{ sulu_content_path(subcategory.id) }}">
-                                            {% if subcategory.extension.excerpt.images[0] is defined %}
-                                                <img src="{{ subcategory.extension.excerpt.images[0].thumbnails['400x300'] }}" alt="{{ subcategory.title }}">
-                                            {% else %}
-                                                <div class="category-placeholder"></div>
-                                            {% endif %}
-                                            <div class="category-overlay">
-                                                <h4>{{ subcategory.title }}</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endif %}
-
             {# Filtrowanie i sortowanie #}
             <div class="row mb-30">
                 <div class="col-md-12">
@@ -100,9 +70,8 @@
 
             {# Lista produktów #}
             <div class="row products-grid" id="products-grid">
-                {% if content.products.pages is defined %}
+                {% if content.products.pages is defined and content.products.pages is iterable %}
                     {% set columns = content.products.presentAs == 'two' ? 6 : (content.products.presentAs == 'three' ? 4 : 3) %}
-
                     {% for product in content.products.pages %}
                         <div class="col-md-{{ columns }} col-sm-6 product-item-wrap mb-30">
                             <div class="product-item">
@@ -320,5 +289,4 @@
             }
         }
     </style>
-
 {% endblock %}

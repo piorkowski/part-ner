@@ -124,6 +124,14 @@
                                         <title lang="de">Bezeichnung</title>
                                     </meta>
                                 </property>
+
+                                <property name="value" type="text_line" mandatory="true">
+                                    <meta>
+                                        <title lang="pl">Wartość</title>
+                                        <title lang="en">Value</title>
+                                        <title lang="de">Wert</title>
+                                    </meta>
+                                </property>
                             </properties>
                         </type>
                     </types>

@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
+
     <div class="page-title-wrap typo-white">
         <div class="page-title-wrap-inner section-bg-dark-1">
             <div class="container">
@@ -8,7 +9,7 @@
                     <div class="col-md-12">
                         <ol class="breadcrumb">
                             <li><a href="{{ sulu_content_root_path() }}">{{ 'navigation.home'|trans }}</a></li>
-                            {% if content.parent %}
+                            {% if content.parent is defined and content.parent %}
                                 <li><a href="{{ sulu_content_path(content.parent.id) }}">{{ content.parent.title }}</a></li>
                             {% endif %}
                             <li class="active">{{ content.title }}</li>
@@ -85,9 +86,9 @@
                                             </div>
                                             <div class="document-info">
                                                 <h4>
-                                                    {{ block.title|default(block.file.title) }}
-                                                    {% if block.document_type %}
-                                                        <span class="badge">{{ ('document_type.' ~ block.document_type)|trans }}</span>
+                                                    {{ block.title|default(block.file.title[app.request.locale]|default('Brak tytułu')) }}
+                                                    {% if block.type %}
+                                                        <span class="badge">{{ ('document_type.' ~ (block.type.value|default(block.type)))|trans }}</span>
                                                     {% endif %}
                                                 </h4>
                                                 {% if block.description %}

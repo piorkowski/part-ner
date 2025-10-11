@@ -3,15 +3,15 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>product-list</key>
-    <view>pages/product-list</view>
+    <key>category-list</key>
+    <view>pages/category-list</view>
     <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
     <cacheLifetime>2400</cacheLifetime>
 
     <meta>
-        <title lang="pl">Lista produktów</title>
-        <title lang="en">Product listing</title>
-        <title lang="de">Produktliste</title>
+        <title lang="pl">Lista kategorii</title>
+        <title lang="en">Category listing</title>
+        <title lang="de">Kategorieliste</title>
     </meta>
 
     <properties>
@@ -36,9 +36,9 @@
 
         <property name="description" type="text_editor">
             <meta>
-                <title lang="pl">Opis kategorii</title>
-                <title lang="en">Category description</title>
-                <title lang="de">Kategoriebeschreibung</title>
+                <title lang="pl">Opis</title>
+                <title lang="en">Description</title>
+                <title lang="de">Beschreibung</title>
             </meta>
             <tag name="sulu.search.field"/>
         </property>
@@ -54,21 +54,19 @@
             </params>
         </property>
 
-        <property name="products" type="smart_content">
+        <property name="categories" type="smart_content">
             <meta>
-                <title lang="pl">Produkty</title>
-                <title lang="en">Products</title>
-                <title lang="de">Produkte</title>
+                <title lang="pl">Kategorie</title>
+                <title lang="en">Categories</title>
+                <title lang="de">Kategorien</title>
             </meta>
             <params>
                 <param name="provider" value="pages"/>
                 <param name="page_parameter" value="page"/>
                 <param name="properties" type="collection">
-                    <param name="product" type="collection">
+                    <param name="category" type="collection">
                         <param name="title" value="title"/>
-                        <param name="subtitle" value="subtitle"/>
-                        <param name="images" value="images"/>
-                        <param name="short_description" value="short_description"/>
+                        <param name="images" value="category_image"/>
                     </param>
                 </param>
                 <param name="present_as" type="collection">
@@ -95,7 +93,7 @@
                     </param>
                 </param>
                 <param name="dataSource" value="children"/>
-                <param name="template" value="product"/>
+                <param name="template" value="product-list"/>
             </params>
         </property>
     </properties>

@@ -3,22 +3,50 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://schemas.sulu.io/media/formats http://schemas.sulu.io/media/formats-1.1.xsd">
 
-    <!-- See: http://docs.sulu.io/en/latest/book/image-formats.html how to define image-formats -->
-
-    <!--
-    <format key="300x">
+    <!-- Product List Thumbnails -->
+    <format key="400x300">
         <meta>
-            <title lang="en">Example Image</title>
-            <title lang="de">Beispielbild</title>
+            <title lang="en">Product List Thumbnail</title>
+            <title lang="de">Produktlisten-Miniaturansicht</title>
+            <title lang="pl">Miniatura listy produktów</title>
         </meta>
-
-        <scale x="300"/>
+        <scale x="400" y="300" mode="outbound"/>
     </format>
-    -->
 
-    <!--
-    Render an image from the media_selection in a specific format the following way:
+    <format key="800x600">
+        <meta>
+            <title lang="en">Large Product Image</title>
+            <title lang="de">Großes Produktbild</title>
+            <title lang="pl">Duże zdjęcie produktu</title>
+        </meta>
+        <scale x="800" y="600" mode="outbound"/>
+    </format>
 
-    <img src="{{ image.thumbnails['300x'] }}" alt="{{ image.title }}" title="{{ image.description|default(image.title) }}">
-    -->
+    <format key="400x400">
+        <meta>
+            <title lang="en">Product Square</title>
+            <title lang="de">Produkt Quadrat</title>
+            <title lang="pl">Kwadratowy produkt</title>
+        </meta>
+        <scale x="400" y="400" mode="outbound"/>
+    </format>
+
+    <format key="150x150">
+        <meta>
+            <title lang="en">Thumbnail Small</title>
+            <title lang="de">Kleine Miniaturansicht</title>
+            <title lang="pl">Mała miniatura</title>
+        </meta>
+        <scale x="150" y="150" mode="outbound"/>
+    </format>
+
+    <format key="200x100">
+        <meta>
+            <title lang="en">Logo Size</title>
+            <title lang="de">Logo-Größe</title>
+            <title lang="pl">Rozmiar logo</title>
+        </meta>
+        <scale x="200" y="100" mode="inset"/>
+    </format>
+
 </formats>
