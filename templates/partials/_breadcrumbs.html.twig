@@ -1,0 +1,10 @@
+
+{# templates/partials/_breadcrumbs.html.twig #}
+{# expects: parent (object or null), title (string) #}
+<ol class="breadcrumb">
+  <li><a href="{{ sulu_content_root_path() }}">{{ 'navigation.home'|trans }}</a></li>
+  {% if parent is defined and parent %}
+    <li><a href="{{ sulu_content_path(parent.id) }}">{{ parent.title }}</a></li>
+  {% endif %}
+  <li class="active">{{ title }}</li>
+</ol>

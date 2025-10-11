@@ -1,5 +1,4 @@
 {% extends "base.html.twig" %}
-
 {% block content %}
 
     {# Page Title #}
@@ -7,15 +6,13 @@
         <div class="page-title-wrap-inner section-bg-dark-1">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb">
-                            <li><a href="{{ sulu_content_root_path() }}">{{ 'navigation.home'|trans }}</a></li>
-                            <li class="active">{{ content.title }}</li>
-                        </ol>
+                    <div class="col-md-12 text-center">
+                        {% include 'partials/_breadcrumbs.html.twig' with {
+                            parent: null,
+                            title: content.title
+                        } %}
                         <h1 class="page-title">{{ content.title }}</h1>
-                        {% if content.subtitle %}
-                            <p class="page-subtitle">{{ content.subtitle }}</p>
-                        {% endif %}
+                        {% if content.subtitle %}<p class="page-subtitle lead">{{ content.subtitle }}</p>{% endif %}
                     </div>
                 </div>
             </div>
@@ -27,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="about-content">
+                    <div class="about-content lead">
                         {{ content.content|raw }}
                     </div>
                 </div>
@@ -40,11 +37,9 @@
         <section class="section-wrap pb-80 pt-40">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 text-center mb-50">
-                        <h2 class="uppercase">{{ 'about.our_team'|trans }}</h2>
+                    <div class="col-md-12 text-center mb-50"><h2 class="uppercase">{{ 'about.our_team'|trans }}</h2>
                     </div>
                 </div>
-
                 <div class="row">
                     {% for member in content.team_members %}
                         {% if member.type == 'member' %}
@@ -52,19 +47,17 @@
                                 <div class="team-member text-center">
                                     {% if member.photo %}
                                         <div class="team-member-img">
-                                            <img src="{{ member.photo.thumbnails['400x400'] }}" alt="{{ member.name }}" class="img-responsive">
+                                            <img src="{{ member.photo.thumbnails['400x400'] }}" alt="{{ member.name }}"
+                                                 class="img-responsive">
                                             <div class="team-member-overlay">
-                                                <div class="team-member-bio">
-                                                    {{ member.bio }}
-                                                </div>
+                                                <div class="team-member-bio">{{ member.bio }}</div>
                                             </div>
                                         </div>
                                     {% endif %}
                                     <div class="team-member-details">
                                         <h4 class="team-member-name">{{ member.name }}</h4>
-                                        {% if member.position %}
-                                            <span class="team-member-position">{{ member.position }}</span>
-                                        {% endif %}
+                                        {% if member.position %}<span
+                                            class="team-member-position">{{ member.position }}</span>{% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -75,29 +68,25 @@
         </section>
     {% endif %}
 
-    {# Company Advantages #}
+    {# Advantages #}
     {% if content.advantages %}
         <section class="section-wrap pb-80 pt-40 bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 text-center mb-50">
-                        <h2 class="uppercase">{{ 'about.our_advantages'|trans }}</h2>
-                    </div>
+                    <div class="col-md-12 text-center mb-50"><h2
+                            class="uppercase">{{ 'about.our_advantages'|trans }}</h2></div>
                 </div>
-
                 <div class="row">
                     {% for advantage in content.advantages %}
                         {% if advantage.type == 'advantage' %}
                             <div class="col-md-6 mb-40">
                                 <div class="advantage-item">
                                     {% if advantage.icon %}
-                                        <div class="advantage-icon">
-                                            <i class="{{ advantage.icon }}"></i>
-                                        </div>
-                                    {% endif %}
+                                        <div class="advantage-icon"><i class="{{ advantage.icon }}"></i>
+                                        </div>{% endif %}
                                     <div class="advantage-content">
-                                        <h3>{{ advantage.title }}</h3>
-                                        <p>{{ advantage.description }}</p>
+                                        <h3 class="h5 text-uppercase">{{ advantage.title }}</h3>
+                                        <p class="text-muted">{{ advantage.description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,17 +102,15 @@
         <section class="section-wrap pb-80 pt-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 text-center mb-50">
-                        <h3 class="uppercase">{{ 'about.our_clients'|trans }}</h3>
+                    <div class="col-md-12 text-center mb-50"><h3 class="uppercase">{{ 'about.our_clients'|trans }}</h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="client-logos-carousel owl-carousel">
                             {% for logo in content.client_logos %}
-                                <div class="client-logo">
-                                    <img src="{{ logo.thumbnails['200x100'] }}" alt="{{ logo.title }}">
-                                </div>
+                                <div class="client-logo"><img src="{{ logo.thumbnails['200x100'] }}"
+                                                              alt="{{ logo.title }}"></div>
                             {% endfor %}
                         </div>
                     </div>
@@ -131,160 +118,5 @@
             </div>
         </section>
     {% endif %}
-
-    <style>
-        .page-title-wrap {
-            padding: 100px 0 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .page-subtitle {
-            font-size: 18px;
-            margin-top: 15px;
-            opacity: 0.9;
-        }
-
-        .about-content {
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .team-member {
-            transition: all 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-        }
-
-        .team-member-img {
-            position: relative;
-            overflow: hidden;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .team-member-img img {
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        .team-member:hover .team-member-img img {
-            transform: scale(1.1);
-        }
-
-        .team-member-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            padding: 30px;
-        }
-
-        .team-member:hover .team-member-overlay {
-            opacity: 1;
-        }
-
-        .team-member-bio {
-            color: white;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .team-member-name {
-            margin: 15px 0 5px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .team-member-position {
-            display: block;
-            color: #999;
-            font-size: 14px;
-            font-style: italic;
-        }
-
-        .advantage-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 30px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .advantage-item:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-        }
-
-        .advantage-icon {
-            font-size: 48px;
-            color: #667eea;
-            margin-right: 25px;
-            flex-shrink: 0;
-        }
-
-        .advantage-content h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-
-        .advantage-content p {
-            margin: 0;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .client-logo {
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .client-logo img {
-            max-height: 60px;
-            width: auto;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-
-        .client-logo:hover img {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-    </style>
-
-    <script>
-        $(document).ready(function() {
-            // Initialize client logos carousel
-            $('.client-logos-carousel').owlCarousel({
-                items: 5,
-                loop: true,
-                autoplay: true,
-                autoplayTimeout: 3000,
-                nav: false,
-                dots: false,
-                responsive: {
-                    0: { items: 2 },
-                    600: { items: 3 },
-                    1000: { items: 5 }
-                }
-            });
-        });
-    </script>
 
 {% endblock %}

@@ -1,154 +1,85 @@
+
 {% extends "base.html.twig" %}
-
 {% block content %}
-    <div class="page-title-wrap typo-white">
-        <div class="page-title-wrap-inner section-bg-dark-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb">
-                            <li><a href="{{ sulu_content_root_path() }}">{{ 'navigation.home'|trans }}</a></li>
-                            {% if content.parent is defined %}
-                                <li><a href="{{ sulu_content_path(content.parent.id) }}">{{ content.parent.title }}</a></li>
-                            {% endif %}
-                            <li class="active">{{ content.title }}</li>
-                        </ol>
-                        <h1 class="page-title">{{ content.title }}</h1>
-                    </div>
-                </div>
-            </div>
+  <div class="page-title-wrap typo-white">
+    <div class="page-title-wrap-inner section-bg-dark-1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            {% include 'partials/_breadcrumbs.html.twig' with {
+              parent: content.parent is defined ? content.parent : null,
+              title: content.title
+            } %}
+            <h1 class="page-title">{{ content.title }}</h1>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <section class="section-wrap pt-80 pb-40">
-        <div class="container">
+  <section class="section-wrap pt-80 pb-40">
+    <div class="container">
 
-            {# Opis kategorii #}
-            {% if content.description %}
-                <div class="row mb-50">
-                    <div class="col-md-8 col-md-offset-2 text-center">
-                        {% if content.category_image %}
-                            <img src="{{ content.category_image.thumbnails['400x300'] }}" alt="{{ content.title }}" class="mb-30">
-                        {% endif %}
-                        <div class="category-description">
-                            {{ content.description|raw }}
-                        </div>
-                    </div>
-                </div>
+      {% if content.description %}
+        <div class="row mb-50">
+          <div class="col-md-8 col-md-offset-2 text-center">
+            {% if content.category_image %}
+              <img src="{{ content.category_image.thumbnails['400x300'] }}" alt="{{ content.title }}" class="mb-30">
             {% endif %}
-
-            {# Lista kategorii #}
-            {% if content.categories.pages is defined and content.categories.pages is iterable %}
-                <div class="row categories-grid">
-                    {% set columns = content.categories.presentAs == 'two' ? 6 : (content.categories.presentAs == 'three' ? 4 : 3) %}
-                    {% for category in content.categories.pages %}
-                        <div class="col-md-{{ columns }} col-sm-6 mb-30">
-                            <div class="category-item">
-                                <a href="{{ sulu_content_path(category.id) }}">
-                                    {% if category.content.category_image is defined %}
-                                        <img src="{{ category.content.category_image.thumbnails['400x300'] }}" alt="{{ category.content.title }}">
-                                    {% else %}
-                                        <div class="category-placeholder"></div>
-                                    {% endif %}
-                                    <div class="category-overlay">
-                                        <h4>{{ category.content.title }}</h4>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-
-            {# Paginacja #}
-            {% if content.categories.pages is defined and content.categories.pages|length > 0 and content.categories.pages|length < content.categories.total %}
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <div class="pagination-wrap">
-                            <nav>
-                                <ul class="pagination">
-                                    {% if content.categories.page > 1 %}
-                                        <li>
-                                            <a href="?page={{ content.categories.page - 1 }}" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    {% for i in 1..content.categories.pageCount %}
-                                        <li class="{{ i == content.categories.page ? 'active' : '' }}">
-                                            <a href="?page={{ i }}">{{ i }}</a>
-                                        </li>
-                                    {% endfor %}
-                                    {% if content.categories.page < content.categories.pageCount %}
-                                        <li>
-                                            <a href="?page={{ content.categories.page + 1 }}" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-
+            <div class="category-description">{{ content.description|raw }}</div>
+          </div>
         </div>
-    </section>
+      {% endif %}
 
-    {# Custom CSS #}
-    <style>
-        .category-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
+      {% if content.categories.pages is defined and content.categories.pages is iterable %}
+        {% set columns_md = content.categories.presentAs == 'two' ? 6 : (content.categories.presentAs == 'three' ? 4 : 3) %}
+        <div class="row categories-grid">
+          {% for category in content.categories.pages %}
+            <div class="col-md-{{ columns_md }} col-sm-6 col-xs-12 mb-30">
+              <div class="category-card hover-trigger">
+                <a href="{{ sulu_content_path(category.id) }}" class="category-link">
+                  <div class="category-media">
+                    {% if category.content.category_image is defined %}
+                      <div class="ratio ratio-4x3">
+                        <img src="{{ category.content.category_image.thumbnails['800x600'] ?? category.content.category_image.thumbnails['400x300'] }}"
+                             alt="{{ category.content.title }}" class="img-responsive">
+                      </div>
+                    {% else %}
+                      <div class="ratio ratio-4x3 category-placeholder">
+                        <span class="badge badge-default">Kategoria</span>
+                      </div>
+                    {% endif %}
+                    <div class="category-overlay hover-target">
+                      <h4 class="category-title">{{ category.content.title }}</h4>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-        .category-item:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
+      {% if content.categories.pages is defined and content.categories.pages|length > 0 and content.categories.pages|length < content.categories.total %}
+        {% include 'templates/partials/_paginator.html.twig' with {
+          page: content.categories.page,
+          pageCount: content.categories.pageCount
+        } %}
+      {% endif %}
+    </div>
+  </section>
 
-        .category-item img {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .category-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .category-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 20px;
-            color: white;
-        }
-
-        .category-overlay h4 {
-            margin: 0;
-            color: white;
-        }
-
-        .category-placeholder {
-            width: 100%;
-            height: 250px;
-            background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .category-placeholder:before {
-            content: 'No Image';
-            color: #ccc;
-            font-size: 18px;
-        }
-    </style>
+  <style>
+    .ratio{position:relative;width:100%;overflow:hidden}
+    .ratio:before{content:"";display:block}
+    .ratio.ratio-4x3:before{padding-top:75%}
+    .ratio>img,.ratio>picture,.ratio>.ratio-content{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    .category-card{position:relative;border:0;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.07);transition:.3s;overflow:hidden}
+    .category-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    .category-overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0));opacity:.9;transition:opacity .3s}
+    .category-card:hover .category-overlay{opacity:1}
+    .category-title{margin:0;color:#fff;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+    .category-placeholder{background:#f5f7fb;display:flex;align-items:center;justify-content:center}
+    .badge-default{background:#e1e7ff;color:#2b2f55;padding:6px 10px;border-radius:3px;font-size:12px}
+  </style>
 {% endblock %}

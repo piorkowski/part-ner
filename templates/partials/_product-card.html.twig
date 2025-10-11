@@ -1,0 +1,28 @@
+
+{# templates/partials/_product-card.html.twig #}
+{# expects: product (page item with .id, .content) #}
+<div class="product-item hover-trigger">
+  <div class="product-img">
+    <a href="{{ sulu_content_path(product.id) }}">
+      {% set img1 = product.content.images[0] ?? null %}
+      {% set img2 = product.content.images[1] ?? null %}
+      {% if img1 %}
+        <img src="{{ img1.thumbnails['400x400'] }}" alt="{{ product.content.title }}">
+        {% if img2 %}
+          <img src="{{ img2.thumbnails['400x400'] }}" alt="{{ product.content.title }}" class="product-img-back">
+        {% endif %}
+      {% else %}
+        <img src="{{ asset('build/images/placeholder-product.jpg') }}" alt="{{ product.content.title }}">
+      {% endif %}
+    </a>
+    <div class="product-item-actions hover-target">
+      <a href="{{ sulu_content_path(product.id) }}" class="btn btn-sm btn-dark">{{ 'product.view_details'|trans }}</a>
+    </div>
+  </div>
+  <div class="product-item-details">
+    {% if product.content.subtitle %}<span class="product-item-category">{{ product.content.subtitle }}</span>{% endif %}
+    <h3 class="product-item-name"><a href="{{ sulu_content_path(product.id) }}">{{ product.content.title }}</a></h3>
+    {% if product.content.product_code %}<span class="product-code text-muted">{{ 'product.code'|trans }}: {{ product.content.product_code }}</span>{% endif %}
+    {% if product.content.short_description %}<p class="product-item-description">{{ product.content.short_description|slice(0, 100) }}...</p>{% endif %}
+  </div>
+</div>

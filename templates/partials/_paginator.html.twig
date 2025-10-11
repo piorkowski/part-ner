@@ -1,0 +1,22 @@
+
+{# templates/partials/_paginator.html.twig #}
+{# expects: page (int), pageCount (int) #}
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="pagination-wrap">
+      <nav>
+        <ul class="pagination">
+          {% if page > 1 %}
+            <li><a href="?page={{ page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+          {% endif %}
+          {% for i in 1..pageCount %}
+            <li class="{{ i == page ? 'active' : '' }}"><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endfor %}
+          {% if page < pageCount %}
+            <li><a href="?page={{ page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
