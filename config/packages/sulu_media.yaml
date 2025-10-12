@@ -7,3 +7,32 @@ sulu_media:
             jpeg_quality: 90
             webp_quality: 90
             avif_quality: 90
+
+
+#sulu_media:
+#    adapter: 'auto'
+#    upload:
+#        max_filesize: 256
+#
+#    storage:
+#        local:
+#            path: '%kernel.project_dir%/var/uploads/media'
+#            segments: 10
+#
+#    format_manager:
+#        default_imagine_options:
+#            jpeg_quality: 90
+#            webp_quality: 90
+#            avif_quality: 90
+#
+#    format_cache:
+#        path: '%kernel.project_dir%/public/uploads/media'
+#        segments: 10
+#
+#    routing:
+#        media_proxy_path: '/uploads/media/{slug}'
+#        media_download_path: '/media/{id}/download/{slug}'
+#
+#    # Ghost script dla PDF (opcjonalne)
+#    # ghost_script:
+#    #     path: '/usr/bin/gs'
