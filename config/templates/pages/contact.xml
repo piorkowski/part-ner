@@ -39,6 +39,17 @@
             <tag name="sulu.rlp"/>
         </property>
 
+        <property name="background_image" type="single_media_selection">
+            <meta>
+                <title lang="pl">Zdjęcie w tle</title>
+                <title lang="en">Backgroud image</title>
+                <title lang="de">Hintergrundbild</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
         <property name="description" type="text_editor">
             <meta>
                 <title lang="pl">Opis</title>

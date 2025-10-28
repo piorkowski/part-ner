@@ -47,8 +47,9 @@
                     <title lang="de">Fußzeilennavigation</title>
                     <title lang="pl">Nawigacja w stopce</title>
                 </meta>
+            </context>
 
-            </context><context key="footer-categories">
+            <context key="categories">
                 <meta>
                     <title lang="en">Footer Categories Navigation</title>
                     <title lang="de">Fußzeilenkategorien-Navigation</title>

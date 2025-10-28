@@ -45,56 +45,21 @@
 
         <property name="category_image" type="single_media_selection">
             <meta>
-                <title lang="pl">Zdjęcie kategorii</title>
-                <title lang="en">Category image</title>
-                <title lang="de">Kategoriebild</title>
+                <title lang="pl">Zdjęcie w tle nagłówka</title>
+                <title lang="en">Header background image</title>
+                <title lang="de">Kopfzeilenhintergrundbild</title>
             </meta>
             <params>
                 <param name="types" value="image"/>
             </params>
         </property>
 
-        <property name="categories" type="smart_content">
+        <property name="categories" type="page_selection">
             <meta>
-                <title lang="pl">Kategorie</title>
-                <title lang="en">Categories</title>
-                <title lang="de">Kategorien</title>
+                <title lang="pl">Wybierz podstrony/kategorie do wyświetlenia</title>
+                <title lang="en">Select pages/categories to display</title>
+                <title lang="de">Seiten/Kategorien auswählen</title>
             </meta>
-            <params>
-                <param name="provider" value="pages"/>
-                <param name="page_parameter" value="page"/>
-                <param name="properties" type="collection">
-                    <param name="category" type="collection">
-                        <param name="title" value="title"/>
-                        <param name="images" value="category_image"/>
-                    </param>
-                </param>
-                <param name="present_as" type="collection">
-                    <param name="two">
-                        <meta>
-                            <title lang="pl">Dwie kolumny</title>
-                            <title lang="en">Two columns</title>
-                            <title lang="de">Zwei Spalten</title>
-                        </meta>
-                    </param>
-                    <param name="three">
-                        <meta>
-                            <title lang="pl">Trzy kolumny</title>
-                            <title lang="en">Three columns</title>
-                            <title lang="de">Drei Spalten</title>
-                        </meta>
-                    </param>
-                    <param name="four">
-                        <meta>
-                            <title lang="pl">Cztery kolumny</title>
-                            <title lang="en">Four columns</title>
-                            <title lang="de">Vier Spalten</title>
-                        </meta>
-                    </param>
-                </param>
-                <param name="dataSource" value="children"/>
-                <param name="template" value="product-list"/>
-            </params>
         </property>
     </properties>
 </template>

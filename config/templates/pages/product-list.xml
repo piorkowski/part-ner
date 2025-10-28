@@ -45,9 +45,9 @@
 
         <property name="category_image" type="single_media_selection">
             <meta>
-                <title lang="pl">Zdjęcie kategorii</title>
-                <title lang="en">Category image</title>
-                <title lang="de">Kategoriebild</title>
+                <title lang="pl">Zdjęcie w tle nagłówka</title>
+                <title lang="en">Header background image</title>
+                <title lang="de">Kopfzeilenhintergrundbild</title>
             </meta>
             <params>
                 <param name="types" value="image"/>
@@ -64,12 +64,10 @@
                 <param name="provider" value="pages"/>
                 <param name="page_parameter" value="page"/>
                 <param name="properties" type="collection">
-                    <param name="product" type="collection">
-                        <param name="title" value="title"/>
-                        <param name="subtitle" value="subtitle"/>
-                        <param name="images" value="images"/>
-                        <param name="short_description" value="short_description"/>
-                    </param>
+                    <param name="title" value="title"/>
+                    <param name="subtitle" value="subtitle"/>
+                    <param name="images" value="images"/>
+                    <param name="short_description" value="short_description"/>
                 </param>
                 <param name="present_as" type="collection">
                     <param name="two">
@@ -95,7 +93,6 @@
                     </param>
                 </param>
                 <param name="dataSource" value="children"/>
-                <param name="template" value="product"/>
             </params>
         </property>
     </properties>

@@ -1,108 +1,66 @@
 {% extends "base.html.twig" %}
 {% block content %}
-  <div class="page-title-wrap typo-white">
-    <div class="page-title-wrap-inner section-bg-dark-1">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            {% include 'partials/_breadcrumbs.html.twig' with {
-              parent: content.parent is defined ? content.parent : null,
-              title: content.title
-            } %}
-            <h1 class="page-title">{{ content.title }}</h1>
-          </div>
+    <section class="module bg-dark-60 shop-page-header" {% if content.category_image %}data-background="{{ content.category_image.url }}"{% endif %}>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">{{ content.title }}</h2>
+                    {% if content.description %}
+                        <div class="module-subtitle font-serif">{{ content.description|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <section class="section-wrap pt-80 pb-40">
-    <div class="container">
+    <section class="module-small">
+        <div class="container">
+            <form class="row" method="get">
+                <div class="col-sm-4 mb-sm-20">
+                    <select class="form-control" name="sort">
+                        <option value="">{{ 'product.sort_default'|trans }}</option>
+                        <option value="name-asc">{{ 'product.sort_name_asc'|trans }}</option>
+                        <option value="name-desc">{{ 'product.sort_name_desc'|trans }}</option>
+                        <option value="date-new">{{ 'product.sort_newest'|trans }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-5 mb-sm-20"></div>
+                <div class="col-sm-3">
+                    <button class="btn btn-block btn-round btn-g" type="submit">{{ 'product.apply'|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-      {% if content.description %}
-        <div class="row mb-50">
-          <div class="col-md-8 col-md-offset-2 text-center">
-            {% if content.category_image %}
-              <img src="{{ content.category_image.thumbnails['400x300'] }}" alt="{{ content.title }}" class="mb-30">
+    <hr class="divider-w">
+
+    <section class="module-small">
+        <div class="container">
+            {% if content.products is defined and content.products is iterable and content.products|length > 0 %}
+                <div class="row multi-columns-row">
+                    {% for product in content.products %}
+                        <div class="col-sm-6 col-md-4 col-lg-4">
+                            <div class="shop-item">
+                                <div class="shop-item-image">
+                                    {% if product.images is defined and product.images|length > 0 %}
+                                        <img src="{{ product.images[0].thumbnails['600x600'] ?? product.images[0].url }}" alt="{{ product.title }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ product.title }}"/>
+                                    {% endif %}
+                                    <div class="shop-item-detail">
+                                        <a href="{{ product.url }}" class="btn btn-round btn-b">{{ 'product.view_details'|trans }}</a>
+                                    </div>
+                                </div>
+                                <h4 class="shop-item-title font-alt"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                                {% if product.short_description is defined and product.short_description %}
+                                    <p>{{ product.short_description|slice(0, 80) }}...</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
-            <div class="category-description">{{ content.description|raw }}</div>
-          </div>
         </div>
-      {% endif %}
-
-      <div class="row mb-30">
-        <div class="col-md-12">
-          <div class="shop-filter">
-            <div class="view-mode">
-              <span>{{ 'product.view'|trans }}:</span>
-              <a href="#" class="grid active" aria-label="Grid view"><i class="ti-layout-grid2"></i></a>
-              <a href="#" class="list" aria-label="List view"><i class="ti-view-list"></i></a>
-            </div>
-            <div class="filter-by">
-              <span>{{ 'product.sort_by'|trans }}:</span>
-              <select class="product-sort form-control">
-                <option value="default">{{ 'product.sort_default'|trans }}</option>
-                <option value="name-asc">{{ 'product.sort_name_asc'|trans }}</option>
-                <option value="name-desc">{{ 'product.sort_name_desc'|trans }}</option>
-                <option value="date-new">{{ 'product.sort_newest'|trans }}</option>
-              </select>
-            </div>
-            {% if content.products.pages is defined %}
-              <div class="products-showing">
-                {{ 'product.showing'|trans }} <span>{{ content.products.pages|length }}</span>
-                {{ 'product.of'|trans }} <span>{{ content.products.total }}</span>
-                {{ 'product.results'|trans }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-
-      <div class="row products-grid" id="products-grid">
-        {% if content.products.pages is defined and content.products.pages is iterable %}
-          {% set columns = content.products.presentAs == 'two' ? 6 : (content.products.presentAs == 'three' ? 4 : 3) %}
-          {% for product in content.products.pages %}
-            <div class="col-md-{{ columns }} col-sm-6 product-item-wrap mb-30">
-              {% include 'templates/partials/_product-card.html.twig' with { product: product } %}
-            </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-
-      {% if content.products.pages is defined and content.products.pages|length > 0 and content.products.pages|length < content.products.total %}
-        {% include 'templates/partials/_paginator.html.twig' with {
-          page: content.products.page,
-          pageCount: content.products.pageCount
-        } %}
-      {% endif %}
-
-    </div>
-  </section>
-
-  <style>
-    .product-img-back{position:absolute;top:0;left:0;opacity:0;transition:opacity .3s}
-    .product-item:hover .product-img-back{opacity:1}
-    .product-item-actions{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;z-index:10}
-    .product-item:hover .product-item-actions{opacity:1}
-    .shop-filter{display:flex;align-items:center;justify-content:space-between;padding:20px;background:#f9f9f9;border-radius:4px;flex-wrap:wrap;gap:15px}
-    .shop-filter .view-mode,.shop-filter .filter-by,.shop-filter .products-showing{display:flex;align-items:center;gap:10px}
-    .shop-filter .view-mode a{display:inline-block;width:35px;height:35px;line-height:35px;text-align:center;border:1px solid #ddd;border-radius:3px;color:#666;transition:.3s}
-    .shop-filter .view-mode a:hover,.shop-filter .view-mode a.active{background:#333;border-color:#333;color:#fff}
-    .shop-filter select{height:35px;padding:5px 10px;border:1px solid #ddd;border-radius:3px}
-    @media (max-width:768px){.shop-filter{flex-direction:column;align-items:flex-start}}
-  </style>
-
-  {% block javascripts %}
-    {{ parent() }}
-    <script>
-      $(function(){
-        $('.product-sort').on('change', function(){
-          var v = $(this).val();
-          var url = new URL(window.location.href);
-          url.searchParams.set('sort', v);
-          window.location = url.toString();
-        });
-      });
-    </script>
-  {% endblock %}
+    </section>
 {% endblock %}
+

@@ -17,28 +17,27 @@ homepage:
 
 
 product:
-    code: 'Kod produktu'
-    view_details: 'Zobacz szczegóły'
-    contact_about: 'Zapytaj o produkt'
-    description: 'Opis'
-    specifications: 'Specyfikacja'
-    documents: 'Dokumenty'
-    related_products: 'Powiązane produkty'
-    share: 'Udostępnij'
-    download: 'Pobierz'
-    document_type: 'Typ dokumentu'
-    document_title: 'Tytuł'
-    document_description: 'Opis'
-    document_other: 'Inny'
-    view: 'Widok'
-    sort_by: 'Sortuj według'
-    sort_default: 'Domyślne'
-    sort_name_asc: 'Nazwa A-Z'
-    sort_name_desc: 'Nazwa Z-A'
-    sort_newest: 'Najnowsze'
-    showing: 'Wyświetlanie'
-    of: 'z'
-    results: 'wyników'
+    apply: "Zastosuj"
+    view_category: "Zobacz kategorię"
+    view_details: "Zobacz szczegóły"
+    sort_default: "Sortowanie domyślne"
+    sort_name_asc: "Nazwa A-Z"
+    sort_name_desc: "Nazwa Z-A"
+    sort_newest: "Najnowsze"
+    code: "Kod produktu"
+    category: "Kategoria"
+    description: "Opis"
+    specifications: "Specyfikacja techniczna"
+    documents: "Dokumenty"
+    parameter: "Parametr"
+    value: "Wartość"
+    document_type: "Typ dokumentu"
+    document_title: "Nazwa dokumentu"
+    document_description: "Opis"
+    download: "Pobierz"
+    document_other: "Inny"
+    related_products: "Podobne produkty"
+    contact_about: "Zapytaj o produkt"
 
 document_type:
     manual: 'Instrukcja obsługi'
@@ -65,19 +64,21 @@ contact:
     email: 'E-mail'
     working_hours: 'Godziny otwarcia'
     send_message: 'Wyślij wiadomość'
+    where: "Gdzie jesteśmy"
     form:
-        name: 'Imię i nazwisko'
-        email: 'Adres e-mail'
-        phone: 'Telefon'
-        company: 'Firma'
-        subject: 'Temat'
-        message: 'Wiadomość'
-        gdpr: 'Wyrażam zgodę na przetwarzanie moich danych osobowych'
-        send: 'Wyślij wiadomość'
-        success: 'Wiadomość została wysłana pomyślnie!'
-        error_required: 'Proszę wypełnić wszystkie wymagane pola'
-        error_send: 'Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.'
-        inquiry_about: 'Zapytanie o produkt'
+        name: "Imię i nazwisko"
+        email: "Email"
+        phone: "Telefon"
+        subject: "Temat"
+        message: "Wiadomość"
+        gdpr: "Wyrażam zgodę na przetwarzanie moich danych osobowych"
+        send: "Wyślij wiadomość"
+        sending: "Wysyłanie..."
+        success: "Dziękujemy! Wiadomość została wysłana."
+        error_required: "Proszę wypełnić wszystkie wymagane pola."
+        error_send: "Wystąpił błąd. Spróbuj ponownie później."
+        inquiry_about: "Zapytanie o produkt"
+
 
 footer:
     contact: 'Kontakt'

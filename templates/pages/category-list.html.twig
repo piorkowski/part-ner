@@ -1,85 +1,62 @@
-
 {% extends "base.html.twig" %}
 {% block content %}
-  <div class="page-title-wrap typo-white">
-    <div class="page-title-wrap-inner section-bg-dark-1">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            {% include 'partials/_breadcrumbs.html.twig' with {
-              parent: content.parent is defined ? content.parent : null,
-              title: content.title
-            } %}
-            <h1 class="page-title">{{ content.title }}</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="section-wrap pt-80 pb-40">
-    <div class="container">
-
-      {% if content.description %}
-        <div class="row mb-50">
-          <div class="col-md-8 col-md-offset-2 text-center">
-            {% if content.category_image %}
-              <img src="{{ content.category_image.thumbnails['400x300'] }}" alt="{{ content.title }}" class="mb-30">
-            {% endif %}
-            <div class="category-description">{{ content.description|raw }}</div>
-          </div>
-        </div>
-      {% endif %}
-
-      {% if content.categories.pages is defined and content.categories.pages is iterable %}
-        {% set columns_md = content.categories.presentAs == 'two' ? 6 : (content.categories.presentAs == 'three' ? 4 : 3) %}
-        <div class="row categories-grid">
-          {% for category in content.categories.pages %}
-            <div class="col-md-{{ columns_md }} col-sm-6 col-xs-12 mb-30">
-              <div class="category-card hover-trigger">
-                <a href="{{ sulu_content_path(category.id) }}" class="category-link">
-                  <div class="category-media">
-                    {% if category.content.category_image is defined %}
-                      <div class="ratio ratio-4x3">
-                        <img src="{{ category.content.category_image.thumbnails['800x600'] ?? category.content.category_image.thumbnails['400x300'] }}"
-                             alt="{{ category.content.title }}" class="img-responsive">
-                      </div>
-                    {% else %}
-                      <div class="ratio ratio-4x3 category-placeholder">
-                        <span class="badge badge-default">Kategoria</span>
-                      </div>
+    <section class="module bg-dark-60 shop-page-header" {% if content.category_image %}data-background="{{ content.category_image.url }}"{% endif %}>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">{{ content.title }}</h2>
+                    {% if content.description %}
+                        <div class="module-subtitle font-serif">{{ content.description|striptags }}</div>
                     {% endif %}
-                    <div class="category-overlay hover-target">
-                      <h4 class="category-title">{{ category.content.title }}</h4>
-                    </div>
-                  </div>
-                </a>
-              </div>
+                </div>
             </div>
-          {% endfor %}
         </div>
-      {% endif %}
+    </section>
 
-      {% if content.categories.pages is defined and content.categories.pages|length > 0 and content.categories.pages|length < content.categories.total %}
-        {% include 'templates/partials/_paginator.html.twig' with {
-          page: content.categories.page,
-          pageCount: content.categories.pageCount
-        } %}
-      {% endif %}
-    </div>
-  </section>
+    <section class="module-small">
+        <div class="container">
+            <form class="row" method="get">
+                <div class="col-sm-4 mb-sm-20">
+                    <select class="form-control" name="sort">
+                        <option value="">{{ 'product.sort_default'|trans }}</option>
+                        <option value="name-asc">{{ 'product.sort_name_asc'|trans }}</option>
+                        <option value="name-desc">{{ 'product.sort_name_desc'|trans }}</option>
+                        <option value="date-new">{{ 'product.sort_newest'|trans }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-5 mb-sm-20"></div>
+                <div class="col-sm-3">
+                    <button class="btn btn-block btn-round btn-g" type="submit">{{ 'product.apply'|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-  <style>
-    .ratio{position:relative;width:100%;overflow:hidden}
-    .ratio:before{content:"";display:block}
-    .ratio.ratio-4x3:before{padding-top:75%}
-    .ratio>img,.ratio>picture,.ratio>.ratio-content{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
-    .category-card{position:relative;border:0;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.07);transition:.3s;overflow:hidden}
-    .category-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.12)}
-    .category-overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0));opacity:.9;transition:opacity .3s}
-    .category-card:hover .category-overlay{opacity:1}
-    .category-title{margin:0;color:#fff;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-    .category-placeholder{background:#f5f7fb;display:flex;align-items:center;justify-content:center}
-    .badge-default{background:#e1e7ff;color:#2b2f55;padding:6px 10px;border-radius:3px;font-size:12px}
-  </style>
+    <hr class="divider-w">
+
+    <section class="module-small">
+        <div class="container">
+            {% if content.categories is defined and content.categories is iterable and content.categories|length > 0 %}
+                <div class="row multi-columns-row">
+                    {% for category in content.categories %}
+                        <div class="col-sm-6 col-md-4 col-lg-4">
+                            <div class="shop-item">
+                                <div class="shop-item-image">
+                                    {% if category.content.category_image is defined %}
+                                        <img src="{{ category.content.category_image.thumbnails['600x600'] ?? category.content.category_image.url }}" alt="{{ category.title }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ category.title }}"/>
+                                    {% endif %}
+                                    <div class="shop-item-detail">
+                                        <a href="{{ sulu_content_path(category.url) }}" class="btn btn-round btn-b">{{ 'product.view_category'|trans }}</a>
+                                    </div>
+                                </div>
+                                <h4 class="shop-item-title font-alt"><a href="{{ sulu_content_path(category.url) }}">{{ category.title }}</a></h4>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

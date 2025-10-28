@@ -1,225 +1,239 @@
 {% extends "base.html.twig" %}
 {% block content %}
 
-    <div class="page-title-wrap typo-white">
-        <div class="page-title-wrap-inner section-bg-dark-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        {% include 'partials/_breadcrumbs.html.twig' with {
-                            parent: content.parent is defined and content.parent ? content.parent : null,
-                            title: content.title
-                        } %}
-                        <h1 class="page-title">{{ content.title }}</h1>
+    <section class="module">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 mb-sm-40">
+                    {% if content.images|length > 0 %}
+                        <a class="gallery" href="{{ content.images[0].url }}">
+                            <img src="{{ content.images[0].thumbnails['800x600'] ?? content.images[0].url }}" alt="{{ content.title }}"/>
+                        </a>
+                        {% if content.images|length > 1 %}
+                            <ul class="product-gallery">
+                                {% for image in content.images|slice(1) %}
+                                    <li>
+                                        <a class="gallery" href="{{ image.url }}">
+                                            <img src="{{ image.thumbnails['200x200'] ?? image.url }}" alt="{{ content.title }}"/>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="product-title font-alt">{{ content.title }}</h1>
+                        </div>
+                    </div>
+
+                    {% if content.product_code %}
+                        <div class="row mb-20">
+                            <div class="col-sm-12">
+                                <div class="product_meta">{{ 'product.code'|trans }}: <strong>{{ content.product_code }}</strong></div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if content.subtitle %}
+                        <div class="row mb-20">
+                            <div class="col-sm-12">
+                                <p class="lead">{{ content.subtitle }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if content.short_description %}
+                        <div class="row mb-20">
+                            <div class="col-sm-12">
+                                <div class="description">
+                                    <p>{{ content.short_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="row mb-20">
+                        <div class="col-sm-12">
+                            <a class="btn btn-lg btn-block btn-round btn-b" href="{{ sulu_content_path('contact') }}?product={{ content.title }}">
+                                <span class="icon-mail"></span> {{ 'product.contact_about'|trans }}
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if content.parent is defined and content.parent %}
+                        <div class="row mb-20">
+                            <div class="col-sm-12">
+                                <div class="product_meta">
+                                    {{ 'product.category'|trans }}: <a href="{{ sulu_content_path(content.parent.id) }}">{{ content.parent.title }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mt-70">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs font-alt" role="tablist">
+                        <li class="active">
+                            <a href="#description" data-toggle="tab">
+                                <span class="icon-tools-2"></span>{{ 'product.description'|trans }}
+                            </a>
+                        </li>
+                        {% if content.specifications or content.technical_data %}
+                            <li>
+                                <a href="#data-sheet" data-toggle="tab">
+                                    <span class="icon-tools-2"></span>{{ 'product.specifications'|trans }}
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if content.documents %}
+                            <li>
+                                <a href="#documents" data-toggle="tab">
+                                    <span class="icon-document"></span>{{ 'product.documents'|trans }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="description">
+                            {% if content.description %}
+                                {{ content.description|raw }}
+                            {% endif %}
+                        </div>
+
+                        {% if content.specifications or content.technical_data %}
+                            <div class="tab-pane" id="data-sheet">
+                                {% if content.specifications %}
+                                    <div class="mb-30">{{ content.specifications|raw }}</div>
+                                {% endif %}
+
+                                {% if content.technical_data %}
+                                    <table class="table table-striped ds-table table-responsive">
+                                        <tbody>
+                                        <tr>
+                                            <th>{{ 'product.parameter'|trans }}</th>
+                                            <th>{{ 'product.value'|trans }}</th>
+                                        </tr>
+                                        {% for block in content.technical_data %}
+                                            {% if block.type == 'data_row' %}
+                                                <tr>
+                                                    <td>{{ block.label }}</td>
+                                                    <td>{{ block.value }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% if content.documents %}
+                            <div class="tab-pane" id="documents">
+                                <table class="table table-striped ds-table table-responsive">
+                                    <tbody>
+                                    <tr>
+                                        <th>{{ 'product.document_type'|trans }}</th>
+                                        <th>{{ 'product.document_title'|trans }}</th>
+                                        <th>{{ 'product.document_description'|trans }}</th>
+                                        <th>{{ 'product.download'|trans }}</th>
+                                    </tr>
+                                    {% for block in content.documents %}
+                                        {% if block.type == 'document' %}
+                                            <tr>
+                                                <td>
+                                                    {% if block.document_type %}
+                                                        {{ ('document_type.' ~ block.document_type)|trans }}
+                                                    {% else %}
+                                                        {{ 'product.document_other'|trans }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ block.title|default(block.file.title|default('')) }}</td>
+                                                <td>{{ block.description|default('') }}</td>
+                                                <td>
+                                                    <a href="{{ block.file.url }}" class="btn btn-xs btn-round btn-d" download target="_blank">
+                                                        <i class="fa fa-download"></i> {{ 'product.download'|trans }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section class="section-wrap pt-80 pb-40 product-single">
-        <div class="container relative">
-            <div class="row">
-
-                <div class="col-md-6 mb-50">
-                    {% if content.images|length > 0 %}
-                        <div class="product-gallery">
-                            <div id="product-slider" class="flexslider">
-                                <ul class="slides">
-                                    {% for image in content.images %}
-                                        <li data-thumb="{{ image.thumbnails['150x150'] }}">
-                                            <a href="{{ image.url }}" class="lightbox-img">
-                                                <img src="{{ image.thumbnails['800x600'] ?? image.thumbnails['400x400'] }}" alt="{{ image.title }}"/>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {% if content.images|length > 1 %}
-                                <div id="product-carousel" class="flexslider">
-                                    <ul class="slides">
-                                        {% for image in content.images %}
-                                            <li><img src="{{ image.thumbnails['150x150'] }}" alt="{{ image.title }}"/></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div class="col-md-6 product-description-wrap mb-50">
-                    {% if content.subtitle %}<p class="text-muted">{{ content.subtitle }}</p>{% endif %}
-                    <h1 class="product-title">{{ content.title }}</h1>
-                    {% if content.product_code %}<span class="product-code">{{ 'product.code'|trans }}: <strong>{{ content.product_code }}</strong></span>{% endif %}
-
-                    {% if content.short_description %}
-                        <div class="product-short-description mt-20">{{ content.short_description|nl2br }}</div>
-                    {% endif %}
-
-                    <div class="product-actions mt-30">
-                        <a href="{{ sulu_content_path('contact') }}?product={{ content.title }}" class="btn btn-lg btn-dark">
-                            <i class="ti-email"></i> {{ 'product.contact_about'|trans }}
-                        </a>
+    {% if content.related_products %}
+        <hr class="divider-w">
+        <section class="module-small">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <h2 class="module-title font-alt">{{ 'product.related_products'|trans }}</h2>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-tabs mt-40">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">{{ 'product.description'|trans }}</a></li>
-                            {% if content.specifications or content.technical_data %}
-                                <li role="presentation"><a href="#specifications" role="tab" data-toggle="tab">{{ 'product.specifications'|trans }}</a></li>
-                            {% endif %}
-                            {% if content.documents %}
-                                <li role="presentation"><a href="#documents" role="tab" data-toggle="tab">{{ 'product.documents'|trans }}</a></li>
-                            {% endif %}
-                        </ul>
-
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade in active" id="description">
-                                <div class="product-description">{{ content.description|raw }}</div>
-                            </div>
-
-                            {% if content.specifications or content.technical_data %}
-                                <div role="tabpanel" class="tab-pane fade" id="specifications">
-                                    {% if content.specifications %}
-                                        <div class="product-specifications">{{ content.specifications|raw }}</div>
+                <div class="row multi-columns-row">
+                    {% for product in content.related_products %}
+                        <div class="col-sm-6 col-md-3 col-lg-3">
+                            <div class="shop-item">
+                                <div class="shop-item-image">
+                                    {% if product.content.images is defined and product.content.images|length > 0 %}
+                                        <img src="{{ product.content.images[0].thumbnails['400x400'] ?? product.content.images[0].url }}" alt="{{ product.content.title }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ product.content.title }}"/>
                                     {% endif %}
-                                    {% if content.technical_data %}
-                                        <table class="table table-bordered technical-data-table">
-                                            <tbody>
-                                            {% for block in content.technical_data %}
-                                                {% if block.type == 'data_row' %}
-                                                    <tr>
-                                                        <td><strong>{{ block.label }}</strong></td>
-                                                        <td>{{ block.value }}</td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-
-                            {% if content.documents %}
-                                <div role="tabpanel" class="tab-pane fade" id="documents">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-documents">
-                                            <thead>
-                                            <tr>
-                                                <th style="width:15%">{{ 'product.document_type'|trans }}</th>
-                                                <th style="width:30%">{{ 'product.document_title'|trans }}</th>
-                                                <th>{{ 'product.document_description'|trans }}</th>
-                                                <th style="width:12%">{{ 'product.download'|trans }}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for block in content.documents %}
-                                                {% if block.type == 'document' %}
-                                                    <tr>
-                                                        <td>
-                                                            {% if block.document_type is defined and block.type %}
-                                                                {{ ('document_type.' ~ block.type)|trans }}
-                                                            {% else %}
-                                                                {{ 'product.document_other'|trans }}
-                                                            {% endif %}
-                                                        </td>
-                                                        <td>{{ block.title|default(block.file.title[app.request.locale]|default(block.file.title|default('Brak tytułu'))) }}</td>
-                                                        <td class="text-muted">{% if block.description %}{{ block.description }}{% endif %}</td>
-                                                        <td>
-                                                            <a href="{{ block.file.url }}" class="btn btn-xs btn-dark" download target="_blank">
-                                                                <i class="ti-download"></i> {{ 'product.download'|trans }}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
+                                    <div class="shop-item-detail">
+                                        <a href="{{ sulu_content_path(product.id) }}" class="btn btn-round btn-b">
+                                            {{ 'product.view_details'|trans }}
+                                        </a>
                                     </div>
                                 </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {% if content.related_products %}
-                <div class="row mt-80">
-                    <div class="col-md-12"><h3 class="uppercase mb-40">{{ 'product.related_products'|trans }}</h3></div>
-                </div>
-                <div class="row">
-                    {% for product in content.related_products %}
-                        <div class="col-md-3 col-xs-6">
-                            {% set p = product %}
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="{{ sulu_content_path(p.id) }}">
-                                        {% if p.content.images[0] is defined %}
-                                            <img src="{{ p.content.images[0].thumbnails['400x400'] }}" alt="{{ p.content.title }}">
-                                        {% else %}
-                                            <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ p.content.title }}">
-                                        {% endif %}
-                                    </a>
-                                </div>
-                                <div class="product-item-details">
-                                    <h3 class="product-item-name"><a href="{{ sulu_content_path(p.id) }}">{{ p.content.title }}</a></h3>
-                                    {% if p.content.short_description is defined and p.content.short_description %}
-                                        <p class="text-muted">{{ p.content.short_description|slice(0, 80) }}...</p>
-                                    {% endif %}
-                                </div>
+                                <h4 class="shop-item-title font-alt">
+                                    <a href="{{ sulu_content_path(product.id) }}">{{ product.content.title }}</a>
+                                </h4>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-            {% endif %}
-
-        </div>
-    </section>
+            </div>
+        </section>
+    {% endif %}
 
     <style>
-        .table-documents th, .table-documents td { vertical-align: middle; }
-        .table-documents td .btn { white-space: nowrap; }
-        .technical-data-table td { padding: 12px; }
-        .technical-data-table td:first-child { width: 30%; background: #f9f9f9; }
-        #product-carousel .slides li { margin-right: 10px; }
-        #product-carousel img { cursor: pointer; }
+        .product-gallery{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;list-style:none;padding:0}
+        .product-gallery li{flex:0 0 calc(33.333% - 7px)}
+        .product-gallery a{display:block;border:2px solid #eee;transition:border-color .3s}
+        .product-gallery a:hover{border-color:#333}
+        .product-gallery img{width:100%;height:auto;display:block}
+        .product_meta{margin-bottom:10px;color:#666}
+        .product_meta a{color:#333;font-weight:600}
+        .product_meta a:hover{color:#667eea}
+        .ds-table th{background:#f9f9f9;font-weight:600}
+        .ds-table td{vertical-align:middle}
     </style>
 
     {% block javascripts %}
         {{ parent() }}
-        <script src="{{ asset('assets/lib/flexslider/jquery.flexslider.js') }}"></script>
         <script>
             $(function(){
-                // Flexslider main + carousel sync (Titan-like)
-                $('#product-carousel').flexslider({
-                    animation: 'slide',
-                    controlNav: false,
-                    animationLoop: true,
-                    slideshow: false,
-                    itemWidth: 100,
-                    itemMargin: 10,
-                    asNavFor: '#product-slider'
-                });
-                $('#product-slider').flexslider({
-                    animation: 'slide',
-                    controlNav: false,
-                    animationLoop: true,
-                    slideshow: false,
-                    sync: '#product-carousel'
-                });
-                // Magnific popup on main slide
-                $('#product-slider').magnificPopup({
-                    delegate: 'a.lightbox-img',
+                // Magnific Popup dla galerii
+                $('.gallery').magnificPopup({
                     type: 'image',
-                    gallery: { enabled: true }
+                    gallery: {enabled: true}
                 });
             });
         </script>
     {% endblock %}
+
 {% endblock %}

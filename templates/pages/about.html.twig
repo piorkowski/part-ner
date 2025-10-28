@@ -1,119 +1,117 @@
 {% extends "base.html.twig" %}
 {% block content %}
 
-    {# Page Title #}
-    <div class="page-title-wrap typo-white">
-        <div class="page-title-wrap-inner section-bg-dark-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        {% include 'partials/_breadcrumbs.html.twig' with {
-                            parent: null,
-                            title: content.title
-                        } %}
-                        <h1 class="page-title">{{ content.title }}</h1>
-                        {% if content.subtitle %}<p class="page-subtitle lead">{{ content.subtitle }}</p>{% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {# Main Content #}
-    <section class="section-wrap pt-80 pb-40">
+    <section class="module bg-dark-60 about-page-header" {% if content.background_image %}data-background="{{ content.background_image.url }}"{% endif %}>
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="about-content lead">
-                        {{ content.content|raw }}
-                    </div>
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">{{ content.title }}</h2>
+                    {% if content.subtitle %}
+                        <div class="module-subtitle font-serif">{{ content.subtitle }}</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
-    {# Team Members #}
-    {% if content.team_members %}
-        <section class="section-wrap pb-80 pt-40">
+    {% if content.content %}
+        <section class="module">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 text-center mb-50"><h2 class="uppercase">{{ 'about.our_team'|trans }}</h2>
+                    <div class="col-sm-8 col-sm-offset-2">
+                        {{ content.content|raw }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if content.team_members %}
+        <hr class="divider-w">
+        <section class="module" id="team">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <h2 class="module-title font-alt">{{ 'about.our_team'|trans }}</h2>
                     </div>
                 </div>
                 <div class="row">
-                    {% for member in content.team_members %}
-                        {% if member.type == 'member' %}
-                            <div class="col-md-3 col-sm-6 mb-40">
-                                <div class="team-member text-center">
-                                    {% if member.photo %}
-                                        <div class="team-member-img">
-                                            <img src="{{ member.photo.thumbnails['400x400'] }}" alt="{{ member.name }}"
-                                                 class="img-responsive">
-                                            <div class="team-member-overlay">
-                                                <div class="team-member-bio">{{ member.bio }}</div>
+                    <div class="owl-carousel text-center" data-items="4" data-pagination="true" data-navigation="false">
+                        {% for member in content.team_members %}
+                            {% if member.type == 'member' %}
+                                <div class="owl-item">
+                                    <div class="col-sm-12 mb-sm-20">
+                                        <div class="team-item">
+                                            <div class="team-image">
+                                                {% if member.photo %}
+                                                    <img src="{{ member.photo.thumbnails['400x400'] ?? member.photo.url }}" alt="{{ member.name }}"/>
+                                                {% endif %}
+                                                <div class="team-detail">
+                                                    <h5 class="font-alt">{{ member.name }}</h5>
+                                                    {% if member.bio %}
+                                                        <p class="font-serif">{{ member.bio }}</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="team-descr font-alt">
+                                                <div class="team-name">{{ member.name }}</div>
+                                                {% if member.position %}
+                                                    <div class="team-role">{{ member.position }}</div>
+                                                {% endif %}
                                             </div>
                                         </div>
-                                    {% endif %}
-                                    <div class="team-member-details">
-                                        <h4 class="team-member-name">{{ member.name }}</h4>
-                                        {% if member.position %}<span
-                                            class="team-member-position">{{ member.position }}</span>{% endif %}
                                     </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </section>
     {% endif %}
 
-    {# Advantages #}
+    {% if content.client_logos %}
+        <section class="module-small bg-dark p-0">
+            <div class="container">
+                <div class="row client">
+                    <div class="owl-carousel text-center" data-items="6" data-pagination="false" data-navigation="false">
+                        {% for logo in content.client_logos %}
+                            <div class="owl-item">
+                                <div class="col-sm-12">
+                                    <div class="client-logo">
+                                        <img src="{{ logo.thumbnails['200x100'] ?? logo.url }}" alt="{{ logo.title }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
     {% if content.advantages %}
-        <section class="section-wrap pb-80 pt-40 bg-light">
+        <section class="module" id="services">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 text-center mb-50"><h2
-                            class="uppercase">{{ 'about.our_advantages'|trans }}</h2></div>
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <h2 class="module-title font-alt">{{ 'about.our_advantages'|trans }}</h2>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="row multi-columns-row">
                     {% for advantage in content.advantages %}
                         {% if advantage.type == 'advantage' %}
-                            <div class="col-md-6 mb-40">
-                                <div class="advantage-item">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="features-item">
                                     {% if advantage.icon %}
-                                        <div class="advantage-icon"><i class="{{ advantage.icon }}"></i>
-                                        </div>{% endif %}
-                                    <div class="advantage-content">
-                                        <h3 class="h5 text-uppercase">{{ advantage.title }}</h3>
-                                        <p class="text-muted">{{ advantage.description }}</p>
-                                    </div>
+                                        <div class="features-icon"><span class="{{ advantage.icon }}"></span></div>
+                                    {% endif %}
+                                    <h3 class="features-title font-alt">{{ advantage.title }}</h3>
+                                    <p>{{ advantage.description }}</p>
                                 </div>
                             </div>
                         {% endif %}
                     {% endfor %}
-                </div>
-            </div>
-        </section>
-    {% endif %}
-
-    {# Client Logos #}
-    {% if content.client_logos %}
-        <section class="section-wrap pb-80 pt-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center mb-50"><h3 class="uppercase">{{ 'about.our_clients'|trans }}</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="client-logos-carousel owl-carousel">
-                            {% for logo in content.client_logos %}
-                                <div class="client-logo"><img src="{{ logo.thumbnails['200x100'] }}"
-                                                              alt="{{ logo.title }}"></div>
-                            {% endfor %}
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
