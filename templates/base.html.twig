@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
 <head>
@@ -17,7 +16,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/themify-icons@0.1.2/css/themify-icons.css">
 
-    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('assets/images/favicons/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('assets/images/favicons/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('assets/images/favicons/apple-icon-72x72.png') }}">
@@ -35,7 +33,6 @@
     <meta name="msapplication-TileImage" content="{{  asset('assets/images/favicons/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Stylesheets -->
     <link href="{{ asset('assets/lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
@@ -53,85 +50,146 @@
 
     {% block style %}{% endblock %}
 </head>
-<body>
-  <header class="header">
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">
-            <img src="{{ asset('assets/images/logo/logo-white.svg') }}" alt="Logo" class="logo-light" />
-            <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="Logo" class="logo-dark" />
-          </a>
-        </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            {% for item in sulu_navigation_root_tree('main') %}
-              <li class="{{ item.children|length ? 'dropdown' }}">
-                <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
-                   {% if item.children|length %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
-                  {{ item.title }}{% if item.children|length %} <span class="caret"></span>{% endif %}
-                </a>
-                {% if item.children|length %}
-                  <ul class="dropdown-menu">
-                    {% for child in item.children %}
-                      <li><a href="{{ sulu_content_path(child.url, child.webspaceKey) }}">{{ child.title }}</a></li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              </li>
-            {% endfor %}
-
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-label="Language switcher">
-                {{ app.request.locale|upper }} <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                {% for l in localizations %}
-                  <li><a href="{{ l.url }}" lang="{{ l.locale }}" class="{{ app.request.locale == l.locale ? 'active' : '' }}">{{ l.locale|upper }}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-            <li><a href="{{ path('sulu_search.website_search', { q: '' }) }}" aria-label="Search"><i class="ti-search"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <main role="main">
-    {% block content %}{% endblock %}
-  </main>
-
-  <footer class="footer bg-dark pt-60 pb-60">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <ul class="list-inline">
-            <li><a href="{{ sulu_content_root_path() }}">Homepage</a></li>
-            {% for item in sulu_navigation_root_tree('footer') %}
-              <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="col-sm-6 text-right">
-          <p class="mb-0">&copy;d {{ 'now'|date('Y') }} Partner Sp.z o.o</p>
-        </div>
-      </div>
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<main>
+    <div class="page-loader">
+        <div class="loader">Loading...</div>
     </div>
-  </footer>
 
-  {% block javascripts %}
+    <nav class="navbar navbar-custom navbar-fixed-top {% block navbar_class %}navbar-transparent{% endblock %}" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">Partner</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="custom-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    {% for item in sulu_navigation_root_tree('main') %}
+                        <li class="{% if item.children|length %}dropdown{% endif %}">
+                            <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
+                               {% if item.children|length %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+                                {{ item.title }}{% if item.children|length %} <span class="caret"></span>{% endif %}
+                            </a>
+                            {% if item.children|length %}
+                                <ul class="dropdown-menu">
+                                    {% for child in item.children %}
+                                        <li><a href="{{ sulu_content_path(child.url, child.webspaceKey) }}">{{ child.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-label="Language switcher">
+                            {{ app.request.locale|upper }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for l in localizations %}
+                                <li><a href="{{ l.url }}" lang="{{ l.locale }}" class="{{ app.request.locale == l.locale ? 'active' : '' }}">{{ l.locale|upper }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <div class="module-small bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widget-title font-alt">{{ 'footer.about_title'|trans }}</h5>
+                        <p>{{ 'footer.about_text'|trans }}</p>
+                        <p>{{ 'footer.phone'|trans }}: +48 123 456 789</p>
+                        <p>{{ 'footer.email'|trans }}: <a href="mailto:kontakt@partner.pl">kontakt@partner.pl</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widget-title font-alt">{{ 'footer.quick_links'|trans }}</h5>
+                        <ul class="icon-list">
+                            {% for item in sulu_navigation_root_tree('footer') %}
+                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widget-title font-alt">{{ 'footer.categories'|trans }}</h5>
+                        <ul class="icon-list">
+                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 1</a></li>
+                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 2</a></li>
+                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 3</a></li>
+                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 class="widget-title font-alt">{{ 'footer.newsletter'|trans }}</h5>
+                        <p>{{ 'footer.newsletter_text'|trans }}</p>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" type="email" placeholder="{{ 'footer.email_placeholder'|trans }}">
+                            </div>
+                            <button class="btn btn-block btn-round btn-g" type="submit">{{ 'footer.subscribe'|trans }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider-d">
+
+    <footer class="footer bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="copyright font-alt">&copy; {{ 'now'|date('Y') }} Partner Sp. z o.o., {{ 'footer.all_rights'|trans }}</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social-links">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-up">
+        <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
+    </div>
+</main>
+
+{% block javascripts %}
     <script src="{{ asset('assets/lib/jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset('assets/lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/owl.carousel/dist/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/magnific-popup/dist/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/lib/wow/dist/wow.js') }}"></script>
     <script src="{{ asset('assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js') }}"></script>
+    <script src="{{ asset('assets/lib/isotope/dist/isotope.pkgd.js') }}"></script>
+    <script src="{{ asset('assets/lib/imagesloaded/imagesloaded.pkgd.js') }}"></script>
+    <script src="{{ asset('assets/lib/flexslider/jquery.flexslider.js') }}"></script>
+    <script src="{{ asset('assets/lib/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/lib/smoothscroll.js') }}"></script>
+    <script src="{{ asset('assets/lib/magnific-popup/dist/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-  {% endblock %}
+{% endblock %}
 </body>
 </html>

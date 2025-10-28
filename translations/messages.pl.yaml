@@ -8,6 +8,13 @@ homepage:
     contact_us: 'Skontaktuj się z nami'
     cta_title: 'Masz pytania? Skontaktuj się z nami'
     cta_subtitle: 'Nasz zespół chętnie odpowie na wszystkie pytania'
+    categories_title: 'Kategorie produktów'
+    view_more: 'Zobacz więcej'
+    featured_products_title: 'Wyróżnione produkty'
+    featured_products_subtitle: 'Sprawdź naszą ekskluzywną ofertę'
+    news_title: 'Aktualności'
+    read_more: 'Czytaj więcej'
+
 
 product:
     code: 'Kod produktu'
@@ -73,18 +80,22 @@ contact:
         inquiry_about: 'Zapytanie o produkt'
 
 footer:
-    about_text: 'Jesteśmy firmą specjalizującą się w dostarczaniu wysokiej jakości produktów i usług.'
-    quick_links: 'Szybkie linki'
     contact: 'Kontakt'
     address: 'ul. Przykładowa 123, 00-000 Miasto'
-    phone: '+48 123 456 789'
-    email: 'kontakt@firma.pl'
-    newsletter: 'Newsletter'
-    newsletter_text: 'Zapisz się do newslettera i bądź na bieżąco'
-    email_placeholder: 'Twój e-mail'
-    subscribe: 'Zapisz się'
     company_name: 'Twoja Firma'
     all_rights_reserved: 'Wszelkie prawa zastrzeżone'
+    about_title: 'O nas'
+    about_text: 'Partner Sp. z o.o. - Twój zaufany dostawca produktów wysokiej jakości.'
+    phone: 'Telefon'
+    email: 'Email'
+    quick_links: 'Szybkie linki'
+    categories: 'Kategorie'
+    category_placeholder: 'Kategoria'
+    newsletter: 'Newsletter'
+    newsletter_text: 'Zapisz się do naszego newslettera i bądź na bieżąco.'
+    email_placeholder: 'Twój adres email'
+    subscribe: 'Zapisz się'
+    all_rights: 'Wszelkie prawa zastrzeżone'
 
 email:
     new_contact_message: 'Nowa wiadomość kontaktowa'

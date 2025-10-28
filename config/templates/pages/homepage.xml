@@ -39,87 +39,157 @@
             <tag name="sulu.rlp"/>
         </property>
 
-        <!-- Hero Section -->
-        <section name="hero">
+        <property name="hero_slides" type="block">
             <meta>
-                <title lang="pl">Sekcja Hero</title>
-                <title lang="en">Hero Section</title>
-                <title lang="de">Hero-Bereich</title>
+                <title lang="pl">Slajdy Hero</title>
+                <title lang="en">Hero Slides</title>
+                <title lang="de">Hero-Folien</title>
             </meta>
 
-            <properties>
-                <property name="hero_title" type="text_line">
+            <types>
+                <type name="slide">
                     <meta>
-                        <title lang="pl">Tytuł Hero</title>
-                        <title lang="en">Hero Title</title>
-                        <title lang="de">Hero-Titel</title>
+                        <title lang="pl">Slajd</title>
+                        <title lang="en">Slide</title>
+                        <title lang="de">Folie</title>
                     </meta>
-                </property>
 
-                <property name="hero_subtitle" type="text_area">
-                    <meta>
-                        <title lang="pl">Podtytuł Hero</title>
-                        <title lang="en">Hero Subtitle</title>
-                        <title lang="de">Hero-Untertitel</title>
-                    </meta>
-                </property>
+                    <properties>
+                        <property name="image" type="single_media_selection" mandatory="true">
+                            <meta>
+                                <title lang="pl">Zdjęcie tła</title>
+                                <title lang="en">Background image</title>
+                                <title lang="de">Hintergrundbild</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                            </params>
+                        </property>
 
-                <property name="hero_image" type="single_media_selection">
-                    <meta>
-                        <title lang="pl">Zdjęcie tła</title>
-                        <title lang="en">Background image</title>
-                        <title lang="de">Hintergrundbild</title>
-                    </meta>
-                    <params>
-                        <param name="types" value="image"/>
-                    </params>
-                </property>
+                        <property name="title_line1" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł - linia 1</title>
+                                <title lang="en">Title - line 1</title>
+                                <title lang="de">Titel - Zeile 1</title>
+                            </meta>
+                        </property>
 
-                <property name="hero_cta_text" type="text_line">
-                    <meta>
-                        <title lang="pl">Tekst przycisku CTA</title>
-                        <title lang="en">CTA button text</title>
-                        <title lang="de">CTA-Button-Text</title>
-                    </meta>
-                </property>
+                        <property name="title_line2" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł - linia 2 (większy)</title>
+                                <title lang="en">Title - line 2 (bigger)</title>
+                                <title lang="de">Titel - Zeile 2 (größer)</title>
+                            </meta>
+                        </property>
 
-                <property name="hero_cta_link" type="single_page_selection">
-                    <meta>
-                        <title lang="pl">Link przycisku CTA</title>
-                        <title lang="en">CTA button link</title>
-                        <title lang="de">CTA-Button-Link</title>
-                    </meta>
-                </property>
-            </properties>
+                        <property name="title_line3" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł - linia 3</title>
+                                <title lang="en">Title - line 3</title>
+                                <title lang="de">Titel - Zeile 3</title>
+                            </meta>
+                        </property>
 
-        </section>
+                        <property name="cta_text" type="text_line">
+                            <meta>
+                                <title lang="pl">Tekst przycisku</title>
+                                <title lang="en">Button text</title>
+                                <title lang="de">Button-Text</title>
+                            </meta>
+                        </property>
 
-        <!-- Featured Products -->
-        <property name="featured_products" type="page_selection">
+                        <property name="cta_link" type="single_page_selection">
+                            <meta>
+                                <title lang="pl">Link przycisku</title>
+                                <title lang="en">Button link</title>
+                                <title lang="de">Button-Link</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <property name="categories" type="page_selection">
             <meta>
-                <title lang="pl">Wyróżnione produkty</title>
-                <title lang="en">Featured products</title>
-                <title lang="de">Empfohlene Produkte</title>
+                <title lang="pl">Kategorie produktów</title>
+                <title lang="en">Product categories</title>
+                <title lang="de">Produktkategorien</title>
             </meta>
             <params>
                 <param name="max" value="8"/>
             </params>
         </property>
 
-        <!-- Content Blocks -->
-        <property name="content_blocks" type="block">
+        <section name="video_section">
             <meta>
-                <title lang="pl">Bloki treści</title>
-                <title lang="en">Content blocks</title>
-                <title lang="de">Inhaltsblöcke</title>
+                <title lang="pl">Sekcja Video</title>
+                <title lang="en">Video Section</title>
+                <title lang="de">Video-Bereich</title>
+            </meta>
+
+            <properties>
+                <property name="video_enabled" type="checkbox">
+                    <meta>
+                        <title lang="pl">Włącz sekcję video</title>
+                        <title lang="en">Enable video section</title>
+                        <title lang="de">Video-Bereich aktivieren</title>
+                    </meta>
+                </property>
+
+                <property name="video_title" type="text_line">
+                    <meta>
+                        <title lang="pl">Tytuł</title>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                </property>
+
+                <property name="video_youtube_url" type="text_line">
+                    <meta>
+                        <title lang="pl">URL YouTube</title>
+                        <title lang="en">YouTube URL</title>
+                        <title lang="de">YouTube-URL</title>
+                    </meta>
+                </property>
+
+                <property name="video_fallback_image" type="single_media_selection">
+                    <meta>
+                        <title lang="pl">Zdjęcie zastępcze</title>
+                        <title lang="en">Fallback image</title>
+                        <title lang="de">Ersatzbild</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <property name="featured_products" type="page_selection">
+            <meta>
+                <title lang="pl">Wyróżnione produkty (carousel)</title>
+                <title lang="en">Featured products (carousel)</title>
+                <title lang="de">Empfohlene Produkte (Karussell)</title>
+            </meta>
+            <params>
+                <param name="max" value="12"/>
+            </params>
+        </property>
+
+        <property name="news_posts" type="block">
+            <meta>
+                <title lang="pl">Aktualności</title>
+                <title lang="en">News posts</title>
+                <title lang="de">Nachrichten</title>
             </meta>
 
             <types>
-                <type name="text_image">
+                <type name="news_item">
                     <meta>
-                        <title lang="pl">Tekst + Zdjęcie</title>
-                        <title lang="en">Text + Image</title>
-                        <title lang="de">Text + Bild</title>
+                        <title lang="pl">Aktualność</title>
+                        <title lang="en">News item</title>
+                        <title lang="de">Nachricht</title>
                     </meta>
 
                     <properties>
@@ -131,127 +201,24 @@
                             </meta>
                         </property>
 
-                        <property name="text" type="text_editor">
+                        <property name="excerpt" type="text_area">
                             <meta>
-                                <title lang="pl">Tekst</title>
-                                <title lang="en">Text</title>
-                                <title lang="de">Text</title>
+                                <title lang="pl">Zajawka</title>
+                                <title lang="en">Excerpt</title>
+                                <title lang="de">Auszug</title>
                             </meta>
                         </property>
 
-                        <property name="image" type="single_media_selection">
+                        <property name="link" type="single_page_selection">
                             <meta>
-                                <title lang="pl">Zdjęcie</title>
-                                <title lang="en">Image</title>
-                                <title lang="de">Bild</title>
+                                <title lang="pl">Link do strony</title>
+                                <title lang="en">Page link</title>
+                                <title lang="de">Seitenlink</title>
                             </meta>
-                            <params>
-                                <param name="types" value="image"/>
-                            </params>
-                        </property>
-
-                        <property name="image_position" type="select">
-                            <meta>
-                                <title lang="pl">Pozycja zdjęcia</title>
-                                <title lang="en">Image position</title>
-                                <title lang="de">Bildposition</title>
-                            </meta>
-                            <params>
-                                <param name="values" type="collection">
-                                    <param name="left">
-                                        <meta>
-                                            <title lang="pl">Po lewej</title>
-                                            <title lang="en">Left</title>
-                                            <title lang="de">Links</title>
-                                        </meta>
-                                    </param>
-                                    <param name="right">
-                                        <meta>
-                                            <title lang="pl">Po prawej</title>
-                                            <title lang="en">Right</title>
-                                            <title lang="de">Rechts</title>
-                                        </meta>
-                                    </param>
-                                </param>
-                            </params>
-                        </property>
-                    </properties>
-                </type>
-
-                <type name="features">
-                    <meta>
-                        <title lang="pl">Zalety/Cechy</title>
-                        <title lang="en">Features</title>
-                        <title lang="de">Merkmale</title>
-                    </meta>
-
-                    <properties>
-                        <property name="title" type="text_line">
-                            <meta>
-                                <title lang="pl">Tytuł sekcji</title>
-                                <title lang="en">Section title</title>
-                                <title lang="de">Abschnittstitel</title>
-                            </meta>
-                        </property>
-
-                        <property name="features_list" type="block">
-                            <meta>
-                                <title lang="pl">Lista cech</title>
-                                <title lang="en">Features list</title>
-                                <title lang="de">Merkmalsliste</title>
-                            </meta>
-
-                            <types>
-                                <type name="feature">
-                                    <meta>
-                                        <title lang="pl">Cecha</title>
-                                        <title lang="en">Feature</title>
-                                        <title lang="de">Merkmal</title>
-                                    </meta>
-
-                                    <properties>
-                                        <property name="icon" type="text_line">
-                                            <meta>
-                                                <title lang="pl">Ikona (np. ti-desktop)</title>
-                                                <title lang="en">Icon (e.g. ti-desktop)</title>
-                                                <title lang="de">Symbol (z.B. ti-desktop)</title>
-                                            </meta>
-                                        </property>
-
-                                        <property name="title" type="text_line">
-                                            <meta>
-                                                <title lang="pl">Tytuł</title>
-                                                <title lang="en">Title</title>
-                                                <title lang="de">Titel</title>
-                                            </meta>
-                                        </property>
-
-                                        <property name="description" type="text_area">
-                                            <meta>
-                                                <title lang="pl">Opis</title>
-                                                <title lang="en">Description</title>
-                                                <title lang="de">Beschreibung</title>
-                                            </meta>
-                                        </property>
-                                    </properties>
-                                </type>
-                            </types>
                         </property>
                     </properties>
                 </type>
             </types>
-        </property>
-
-        <!-- Client Logos -->
-        <property name="client_logos" type="media_selection">
-            <meta>
-                <title lang="pl">Loga klientów/partnerów</title>
-                <title lang="en">Client/Partner logos</title>
-                <title lang="de">Kunden-/Partnerlogos</title>
-            </meta>
-            <params>
-                <param name="types" value="image"/>
-            </params>
         </property>
     </properties>
 </template>

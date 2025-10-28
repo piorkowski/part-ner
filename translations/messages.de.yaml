@@ -8,6 +8,12 @@ homepage:
     contact_us: "Kontaktieren Sie uns"
     cta_title: "Haben Sie Fragen? Kontaktieren Sie uns"
     cta_subtitle: "Unser Team beantwortet gerne all Ihre Fragen"
+    categories_title: 'Produktkategorien'
+    view_more: 'Mehr sehen'
+    featured_products_title: 'Empfohlene Produkte'
+    featured_products_subtitle: 'Entdecken Sie unser exklusives Angebot'
+    news_title: 'Unsere Neuigkeiten'
+    read_more: 'Weiterlesen'
 
 product:
     code: "Produktcode"
@@ -73,18 +79,22 @@ contact:
         inquiry_about: "Anfrage zum Produkt"
 
 footer:
-    about_text: "Wir sind ein Unternehmen, das sich auf die Bereitstellung hochwertiger Produkte und Dienstleistungen spezialisiert hat."
-    quick_links: "Schnelllinks"
     contact: "Kontakt"
     address: "Beispielstraße 123, 00-000 Stadt"
-    phone: "+48 123 456 789"
-    email: "kontakt@firma.pl"
-    newsletter: "Newsletter"
-    newsletter_text: "Abonnieren Sie den Newsletter und bleiben Sie auf dem Laufenden"
-    email_placeholder: "Ihre E-Mail"
-    subscribe: "Abonnieren"
     company_name: "Ihr Unternehmen"
     all_rights_reserved: "Alle Rechte vorbehalten"
+    about_title: 'Über uns'
+    about_text: 'Partner Sp. z o.o. - Ihr vertrauenswürdiger Anbieter hochwertiger Produkte.'
+    phone: 'Telefon'
+    email: 'E-Mail'
+    quick_links: 'Schnelle Links'
+    categories: 'Kategorien'
+    category_placeholder: 'Kategorie'
+    newsletter: 'Newsletter'
+    newsletter_text: 'Abonnieren Sie unseren Newsletter und bleiben Sie auf dem Laufenden.'
+    email_placeholder: 'Ihre E-Mail-Adresse'
+    subscribe: 'Abonnieren'
+    all_rights: 'Alle Rechte vorbehalten'
 
 email:
     new_contact_message: "Neue Kontaktanfrage"

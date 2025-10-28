@@ -8,6 +8,12 @@ homepage:
     contact_us: "Contact us"
     cta_title: "Have questions? Contact us"
     cta_subtitle: "Our team is happy to answer all your questions"
+    categories_title: 'Product Categories'
+    view_more: 'View more'
+    featured_products_title: 'Featured Products'
+    featured_products_subtitle: 'Check out our exclusive offer'
+    news_title: 'Our News'
+    read_more: 'Read more'
 
 product:
     code: "Product code"
@@ -73,18 +79,22 @@ contact:
         inquiry_about: "Inquiry about product"
 
 footer:
-    about_text: "We are a company specializing in delivering high-quality products and services."
-    quick_links: "Quick links"
     contact: "Contact"
     address: "123 Example St, 00-000 City"
-    phone: "+48 123 456 789"
-    email: "kontakt@firma.pl"
-    newsletter: "Newsletter"
-    newsletter_text: "Subscribe to the newsletter and stay up to date"
-    email_placeholder: "Your email"
-    subscribe: "Subscribe"
     company_name: "Your Company"
     all_rights_reserved: "All rights reserved"
+    about_title: 'About Us'
+    about_text: 'Partner Sp. z o.o. - Your trusted supplier of high-quality products.'
+    phone: 'Phone'
+    email: 'Email'
+    quick_links: 'Quick Links'
+    categories: 'Categories'
+    category_placeholder: 'Category'
+    newsletter: 'Newsletter'
+    newsletter_text: 'Subscribe to our newsletter and stay up to date.'
+    email_placeholder: 'Your email address'
+    subscribe: 'Subscribe'
+    all_rights: 'All Rights Reserved'
 
 email:
     new_contact_message: "New contact message"
