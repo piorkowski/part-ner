@@ -48,6 +48,42 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link id="color-scheme" href="{{ asset('assets/css/colors/default.css') }}" rel="stylesheet">
 
+    <style>
+        .navbar-brand {
+            padding: 10px 15px;
+            height: auto;
+        }
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+        .navbar-transparent .logo-dark {
+            opacity: 0;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+        }
+        .navbar-transparent .logo-light {
+            opacity: 1;
+        }
+        .navbar-custom:not(.navbar-transparent) .logo-light {
+            opacity: 0;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+        }
+        .navbar-custom:not(.navbar-transparent) .logo-dark {
+            opacity: 1;
+        }
+        @media (max-width: 767px) {
+            .navbar-brand img {
+                height: 32px;
+            }
+        }
+    </style>
+
     {% block style %}{% endblock %}
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -65,7 +101,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">Partner</a>
+                <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">
+                    <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" class="logo-dark" width="120px"/>
+                    <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" class="logo-light" />
+                </a>
             </div>
 
             <div class="collapse navbar-collapse" id="custom-collapse">
@@ -106,15 +145,18 @@
     <div class="module-small bg-dark">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="widget">
+                        <div class="footer-logo mb-20">
+                            <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" style="max-width: 180px; height: auto;">
+                        </div>
                         <h5 class="widget-title font-alt">{{ 'footer.about_title'|trans }}</h5>
                         <p>{{ 'footer.about_text'|trans }}</p>
                         <p>{{ 'footer.phone'|trans }}: +48 123 456 789</p>
                         <p>{{ 'footer.email'|trans }}: <a href="mailto:kontakt@partner.pl">kontakt@partner.pl</a></p>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="widget">
                         <h5 class="widget-title font-alt">{{ 'footer.quick_links'|trans }}</h5>
                         <ul class="icon-list">
@@ -124,27 +166,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="widget">
                         <h5 class="widget-title font-alt">{{ 'footer.categories'|trans }}</h5>
                         <ul class="icon-list">
-                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 1</a></li>
-                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 2</a></li>
-                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 3</a></li>
-                            <li><a href="#">{{ 'footer.category_placeholder'|trans }} - 4</a></li>
+                            {% for item in sulu_navigation_root_tree('footer-categories') %}
+                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a></li>
+                            {% endfor %}
                         </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">{{ 'footer.newsletter'|trans }}</h5>
-                        <p>{{ 'footer.newsletter_text'|trans }}</p>
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control" type="email" placeholder="{{ 'footer.email_placeholder'|trans }}">
-                            </div>
-                            <button class="btn btn-block btn-round btn-g" type="submit">{{ 'footer.subscribe'|trans }}</button>
-                        </form>
                     </div>
                 </div>
             </div>

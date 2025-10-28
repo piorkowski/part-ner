@@ -23,7 +23,7 @@
                                             <div class="font-alt mb-40 titan-title-size-1">{{ slide.title_line3 }}</div>
                                         {% endif %}
                                         {% if slide.cta_text and slide.cta_link %}
-                                            <a class="btn btn-border-w btn-round" href="{{ sulu_content_path(slide.cta_link) }}">{{ slide.cta_text }}</a>
+                                            <sulu-link class="btn btn-border-w btn-round" href="{{ slide.cta_link }}">{{ slide.cta_text }}</sulu-link>
                                         {% endif %}
                                     </div>
                                 </div>

@@ -1,22 +1,5 @@
-
 {% extends "base.html.twig" %}
 {% block content %}
-
-  <div class="page-title-wrap typo-white">
-    <div class="page-title-wrap-inner section-bg-dark-1">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            {% include 'partials/_breadcrumbs.html.twig' with {
-              parent: null,
-              title: content.title
-            } %}
-            <h1 class="page-title">{{ content.title }}</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   {% if content.description %}
   <section class="section-wrap pt-80 pb-40">
@@ -47,8 +30,7 @@
               <div class="contact-info-item"><i class="ti-mobile"></i><div><strong>{{ 'contact.phone'|trans }}</strong><br><a href="tel:{{ content.phone|replace({' ': '', '-': ''}) }}">{{ content.phone }}</a></div></div>
             {% endif %}
             {% if content.email %}
-              <div class="contact-info-item"><i class="ti-email"></i><div><strong>{{ 'contact.email'|trans }}</strong><br><a href="mailto:{{
-                content.email }}">{{ content.email }}</a></div></div>
+              <div class="contact-info-item"><i class="ti-email"></i><div><strong>{{ 'contact.email'|trans }}</strong><br><a href="mailto:{{ content.email }}">{{ content.email }}</a></div></div>
             {% endif %}
             {% if content.working_hours %}
               <div class="contact-info-item"><i class="ti-time"></i><div><strong>{{ 'contact.working_hours'|trans }}</strong><br>{{ content.working_hours|nl2br }}</div></div>
