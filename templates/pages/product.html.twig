@@ -56,14 +56,6 @@
                         </div>
                     {% endif %}
 
-                    <div class="row mb-20">
-                        <div class="col-sm-12">
-                            <a class="btn btn-lg btn-block btn-round btn-b" href="{{ sulu_content_path('contact') }}?product={{ content.title }}">
-                                <span class="icon-mail"></span> {{ 'product.contact_about'|trans }}
-                            </a>
-                        </div>
-                    </div>
-
                     {% if content.parent is defined and content.parent %}
                         <div class="row mb-20">
                             <div class="col-sm-12">
@@ -189,18 +181,18 @@
                             <div class="shop-item">
                                 <div class="shop-item-image">
                                     {% if product.content.images is defined and product.content.images|length > 0 %}
-                                        <img src="{{ product.content.images[0].thumbnails['400x400'] ?? product.content.images[0].url }}" alt="{{ product.content.title }}"/>
+                                        <img src="{{ product.content.images[0].thumbnails['400x400'] ?? product.content.images[0].url }}" alt="{{ product.title }}"/>
                                     {% else %}
-                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ product.content.title }}"/>
+                                        <img src="https://placehold.co/400" alt="{{ product.title }}"/>
                                     {% endif %}
                                     <div class="shop-item-detail">
-                                        <a href="{{ sulu_content_path(product.id) }}" class="btn btn-round btn-b">
+                                        <a href="{{ sulu_content_path(product.url) }}" class="btn btn-round btn-b">
                                             {{ 'product.view_details'|trans }}
                                         </a>
                                     </div>
                                 </div>
                                 <h4 class="shop-item-title font-alt">
-                                    <a href="{{ sulu_content_path(product.id) }}">{{ product.content.title }}</a>
+                                    <a href="{{ sulu_content_path(product.url) }}">{{ product.title }}</a>
                                 </h4>
                             </div>
                         </div>

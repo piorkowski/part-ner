@@ -45,7 +45,7 @@
                                     {% if product.images is defined and product.images|length > 0 %}
                                         <img src="{{ product.images[0].thumbnails['600x600'] ?? product.images[0].url }}" alt="{{ product.title }}"/>
                                     {% else %}
-                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ product.title }}"/>
+                                        <img src="https://placehold.co/600x600" alt="{{ product.title }}"/>
                                     {% endif %}
                                     <div class="shop-item-detail">
                                         <a href="{{ product.url }}" class="btn btn-round btn-b">{{ 'product.view_details'|trans }}</a>

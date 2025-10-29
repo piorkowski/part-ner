@@ -45,7 +45,7 @@
                                     {% if category.content.category_image is defined %}
                                         <img src="{{ category.content.category_image.thumbnails['600x600'] ?? category.content.category_image.url }}" alt="{{ category.title }}"/>
                                     {% else %}
-                                        <img src="{{ asset('build/images/placeholder.jpg') }}" alt="{{ category.title }}"/>
+                                        <img src="https://placehold.co/400" alt="{{ category.title }}"/>
                                     {% endif %}
                                     <div class="shop-item-detail">
                                         <a href="{{ sulu_content_path(category.url) }}" class="btn btn-round btn-b">{{ 'product.view_category'|trans }}</a>
