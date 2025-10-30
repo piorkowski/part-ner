@@ -108,11 +108,11 @@
 
             <div class="collapse navbar-collapse" id="custom-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    {% for item in sulu_navigation_root_tree('main') %}
+                    {% for item in sulu_navigation_root_tree('main', 2) %}
                         <li class="{% if item.children|length %}dropdown{% endif %}">
                             <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
                                {% if item.children|length %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
-                                {{ item.title }}{% if item.children|length %} <span class="caret"></span>{% endif %}
+                                {{ item.title }}
                             </a>
 
 
@@ -177,7 +177,7 @@
                     <div class="widget">
                         <h5 class="widget-title font-alt">{{ 'footer.categories'|trans }}</h5>
                         <ul class="icon-list">
-                            {% for item in sulu_navigation_root_tree('categories') %}
+                            {% for item in sulu_navigation_root_tree('categories', 5) %}
                                 <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a>
                                 </li>
                             {% endfor %}
