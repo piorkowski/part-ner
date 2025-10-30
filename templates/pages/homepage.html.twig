@@ -97,11 +97,11 @@
                                 <div class="owl-item">
                                     <div class="col-sm-12">
                                         <div class="ex-product">
-                                            <a href="{{ sulu_content_path(product.id) }}">
+                                            <a href="{{ sulu_content_path(product.url) }}">
                                                 {% if product.images is defined and product.images[0] %}
                                                     <img src="{{ product.images[0].thumbnails['400x400'] }}" alt="{{ product.title }}"/>
                                                 {% else %}
-                                                    <img src="{{ asset('assets/images/placeholder-product.jpg') }}" alt="{{ product.title }}"/>
+                                                    <img src="https://placehold.co/400" alt="{{ product.title }}"/>
                                                 {% endif %}
                                             </a>
                                             <h4 class="shop-item-title font-alt"><a href="{{ sulu_content_path(product.id) }}">{{ product.title }}</a></h4>
