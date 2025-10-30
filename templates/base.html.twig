@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon.svg') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.svg') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{{  asset('favicon.svg') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('favicon.svg') }}">
     <meta name="theme-color" content="#ffffff">
 
     <link href="{{ asset('assets/lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -47,6 +47,39 @@
     <link href="{{ asset('assets/lib/simple-text-rotator/simpletextrotator.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link id="color-scheme" href="{{ asset('assets/css/colors/default.css') }}" rel="stylesheet">
+
+    <style>
+        .navbar-brand {
+            position: relative;
+        }
+
+        .navbar-brand img {
+            transition: opacity ease;
+        }
+
+        .navbar-transparent .logo-dark {
+            opacity: 1;
+        }
+
+        .navbar-transparent .logo-light {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar-custom:not(.navbar-transparent) .logo-light {
+            opacity: 1;
+        }
+
+        .navbar-custom:not(.navbar-transparent) .logo-dark {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+
 
     {% block style %}{% endblock %}
 </head>
@@ -66,7 +99,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">
-                    <img src="{{ asset('assets/images/logo/logo-white.svg') }}" alt="Partner" width="120px">
+                    <img src="{{ asset('assets/images/logo/logo-dark.svg') }}" alt="Partner" class="logo-dark"
+                         width="100px"/>
+                    <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" class="logo-light"
+                         width="100px"/>
                 </a>
             </div>
 
@@ -83,7 +119,9 @@
                             {% if item.children|length %}
                                 <ul class="dropdown-menu">
                                     {% for child in item.children %}
-                                        <li><a href="{{ sulu_content_path(child.url, child.webspaceKey) }}">{{ child.title }}</a></li>
+                                        <li>
+                                            <a href="{{ sulu_content_path(child.url, child.webspaceKey) }}">{{ child.title }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
@@ -96,7 +134,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for l in localizations %}
-                                <li><a href="{{ l.url }}" lang="{{ l.locale }}" class="{{ app.request.locale == l.locale ? 'active' : '' }}">{{ l.locale|upper }}</a></li>
+                                <li><a href="{{ l.url }}" lang="{{ l.locale }}"
+                                       class="{{ app.request.locale == l.locale ? 'active' : '' }}">{{ l.locale|upper }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -113,7 +153,8 @@
                 <div class="col-sm-4">
                     <div class="widget">
                         <div class="footer-logo mb-20">
-                            <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" style="max-width: 180px; height: auto;">
+                            <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner"
+                                 style="max-width: 180px; height: auto;">
                         </div>
                         <h5 class="widget-title font-alt">{{ 'footer.about_title'|trans }}</h5>
                         <p>{{ 'footer.about_text'|trans }}</p>
@@ -126,7 +167,8 @@
                         <h5 class="widget-title font-alt">{{ 'footer.quick_links'|trans }}</h5>
                         <ul class="icon-list">
                             {% for item in sulu_navigation_root_tree('footer') %}
-                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a></li>
+                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -136,7 +178,8 @@
                         <h5 class="widget-title font-alt">{{ 'footer.categories'|trans }}</h5>
                         <ul class="icon-list">
                             {% for item in sulu_navigation_root_tree('categories') %}
-                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a></li>
+                                <li><a href="{{ sulu_content_path(item.url, item.webspaceKey) }}">{{ item.title }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -151,11 +194,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <p class="copyright font-alt">&copy; {{ 'now'|date('Y') }} Partner Sp. z o.o., {{ 'footer.all_rights'|trans }}</p>
+                    <p class="copyright font-alt">&copy; {{ 'now'|date('Y') }} Partner Sp. z
+                        o.o., {{ 'footer.all_rights'|trans }}</p>
                 </div>
                 <div class="col-sm-6">
                     <div class="footer-social-links">
-                        <a href="https://www.linkedin.com/company/partner-sp-z-o-o/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/company/partner-sp-z-o-o/" target="_blank"><i
+                                class="fa fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -166,21 +211,21 @@
         <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
     </div>
 </main>
-
+<script src="{{ asset('assets/lib/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('assets/lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/lib/wow/dist/wow.js') }}"></script>
+<script src="{{ asset('assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js') }}"></script>
+<script src="{{ asset('assets/lib/isotope/dist/isotope.pkgd.js') }}"></script>
+<script src="{{ asset('assets/lib/imagesloaded/imagesloaded.pkgd.js') }}"></script>
+<script src="{{ asset('assets/lib/flexslider/jquery.flexslider.js') }}"></script>
+<script src="{{ asset('assets/lib/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/lib/smoothscroll.js') }}"></script>
+<script src="{{ asset('assets/lib/magnific-popup/dist/jquery.magnific-popup.js') }}"></script>
+<script src="{{ asset('assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 {% block javascripts %}
-    <script src="{{ asset('assets/lib/jquery/dist/jquery.js') }}"></script>
-    <script src="{{ asset('assets/lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/wow/dist/wow.js') }}"></script>
-    <script src="{{ asset('assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js') }}"></script>
-    <script src="{{ asset('assets/lib/isotope/dist/isotope.pkgd.js') }}"></script>
-    <script src="{{ asset('assets/lib/imagesloaded/imagesloaded.pkgd.js') }}"></script>
-    <script src="{{ asset('assets/lib/flexslider/jquery.flexslider.js') }}"></script>
-    <script src="{{ asset('assets/lib/owl.carousel/dist/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/smoothscroll.js') }}"></script>
-    <script src="{{ asset('assets/lib/magnific-popup/dist/jquery.magnific-popup.js') }}"></script>
-    <script src="{{ asset('assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+
 {% endblock %}
 </body>
 </html>
