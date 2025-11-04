@@ -1,0 +1,261 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>cookies-policy</key>
+
+    <view>pages/cookies-policy</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">Polityka cookies</title>
+        <title lang="en">Cookies policy</title>
+        <title lang="de">Cookie-Richtlinie</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="last_update" type="date">
+            <meta>
+                <title lang="pl">Data ostatniej aktualizacji</title>
+                <title lang="en">Last update date</title>
+                <title lang="de">Datum der letzten Aktualisierung</title>
+            </meta>
+        </property>
+
+        <property name="intro_text" type="text_editor">
+            <meta>
+                <title lang="pl">Tekst wprowadzający</title>
+                <title lang="en">Introduction text</title>
+                <title lang="de">Einführungstext</title>
+            </meta>
+        </property>
+
+        <!-- Cookies Categories -->
+        <property name="cookie_categories" type="block">
+            <meta>
+                <title lang="pl">Kategorie cookies</title>
+                <title lang="en">Cookie categories</title>
+                <title lang="de">Cookie-Kategorien</title>
+            </meta>
+
+            <types>
+                <type name="category">
+                    <meta>
+                        <title lang="pl">Kategoria</title>
+                        <title lang="en">Category</title>
+                        <title lang="de">Kategorie</title>
+                    </meta>
+
+                    <properties>
+                        <property name="category_name" type="text_line" mandatory="true">
+                            <meta>
+                                <title lang="pl">Nazwa kategorii</title>
+                                <title lang="en">Category name</title>
+                                <title lang="de">Kategoriename</title>
+                            </meta>
+                        </property>
+
+                        <property name="category_description" type="text_editor">
+                            <meta>
+                                <title lang="pl">Opis kategorii</title>
+                                <title lang="en">Category description</title>
+                                <title lang="de">Kategoriebeschreibung</title>
+                            </meta>
+                        </property>
+
+                        <property name="cookies" type="block">
+                            <meta>
+                                <title lang="pl">Cookies w tej kategorii</title>
+                                <title lang="en">Cookies in this category</title>
+                                <title lang="de">Cookies in dieser Kategorie</title>
+                            </meta>
+
+                            <types>
+                                <type name="cookie">
+                                    <meta>
+                                        <title lang="pl">Cookie</title>
+                                        <title lang="en">Cookie</title>
+                                        <title lang="de">Cookie</title>
+                                    </meta>
+
+                                    <properties>
+                                        <property name="cookie_name" type="text_line" mandatory="true">
+                                            <meta>
+                                                <title lang="pl">Nazwa cookie</title>
+                                                <title lang="en">Cookie name</title>
+                                                <title lang="de">Cookie-Name</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="cookie_purpose" type="text_area" mandatory="true">
+                                            <meta>
+                                                <title lang="pl">Cel cookie</title>
+                                                <title lang="en">Cookie purpose</title>
+                                                <title lang="de">Cookie-Zweck</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="cookie_provider" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Dostawca</title>
+                                                <title lang="en">Provider</title>
+                                                <title lang="de">Anbieter</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="cookie_duration" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Czas przechowywania</title>
+                                                <title lang="en">Duration</title>
+                                                <title lang="de">Speicherdauer</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="cookie_type" type="select">
+                                            <meta>
+                                                <title lang="pl">Typ cookie</title>
+                                                <title lang="en">Cookie type</title>
+                                                <title lang="de">Cookie-Typ</title>
+                                            </meta>
+                                            <params>
+                                                <param name="values" type="collection">
+                                                    <param name="first_party">
+                                                        <meta>
+                                                            <title lang="pl">Własne (First-party)</title>
+                                                            <title lang="en">First-party</title>
+                                                            <title lang="de">Erstanbieter</title>
+                                                        </meta>
+                                                    </param>
+                                                    <param name="third_party">
+                                                        <meta>
+                                                            <title lang="pl">Zewnętrzne (Third-party)</title>
+                                                            <title lang="en">Third-party</title>
+                                                            <title lang="de">Drittanbieter</title>
+                                                        </meta>
+                                                    </param>
+                                                </param>
+                                            </params>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <!-- Additional Sections -->
+        <section name="additional_info">
+            <meta>
+                <title lang="pl">Dodatkowe informacje</title>
+                <title lang="en">Additional information</title>
+                <title lang="de">Zusätzliche Informationen</title>
+            </meta>
+
+            <properties>
+                <property name="how_to_manage" type="text_editor">
+                    <meta>
+                        <title lang="pl">Jak zarządzać cookies</title>
+                        <title lang="en">How to manage cookies</title>
+                        <title lang="de">Verwaltung von Cookies</title>
+                    </meta>
+                </property>
+
+                <property name="browser_links" type="block">
+                    <meta>
+                        <title lang="pl">Linki do ustawień przeglądarek</title>
+                        <title lang="en">Browser settings links</title>
+                        <title lang="de">Browser-Einstellungslinks</title>
+                    </meta>
+
+                    <types>
+                        <type name="browser">
+                            <meta>
+                                <title lang="pl">Przeglądarka</title>
+                                <title lang="en">Browser</title>
+                                <title lang="de">Browser</title>
+                            </meta>
+
+                            <properties>
+                                <property name="browser_name" type="text_line">
+                                    <meta>
+                                        <title lang="pl">Nazwa przeglądarki</title>
+                                        <title lang="en">Browser name</title>
+                                        <title lang="de">Browser-Name</title>
+                                    </meta>
+                                </property>
+
+                                <property name="browser_url" type="text_line">
+                                    <meta>
+                                        <title lang="pl">URL instrukcji</title>
+                                        <title lang="en">Instructions URL</title>
+                                        <title lang="de">Anleitung URL</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+
+                <property name="more_info" type="text_editor">
+                    <meta>
+                        <title lang="pl">Więcej informacji</title>
+                        <title lang="en">More information</title>
+                        <title lang="de">Weitere Informationen</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Contact Section -->
+        <section name="contact_info">
+            <meta>
+                <title lang="pl">Informacje kontaktowe</title>
+                <title lang="en">Contact information</title>
+                <title lang="de">Kontaktinformationen</title>
+            </meta>
+
+            <properties>
+                <property name="contact_text" type="text_editor">
+                    <meta>
+                        <title lang="pl">Tekst kontaktowy</title>
+                        <title lang="en">Contact text</title>
+                        <title lang="de">Kontakttext</title>
+                    </meta>
+                </property>
+
+                <property name="contact_page_link" type="single_page_selection">
+                    <meta>
+                        <title lang="pl">Link do strony kontaktowej</title>
+                        <title lang="en">Contact page link</title>
+                        <title lang="de">Link zur Kontaktseite</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

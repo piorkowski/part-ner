@@ -1,0 +1,16 @@
+cookies:
+  last_update: 'Last update'
+  quick_nav: 'Quick navigation'
+  how_to_manage: 'How to manage cookies'
+  browser_instructions: 'Browser instructions'
+  contact_us: 'Contact us'
+  back_to_top: 'Back to top'
+  first_party: 'First-party'
+  third_party: 'Third-party'
+  
+  table:
+    name: 'Name'
+    purpose: 'Purpose'
+    provider: 'Provider'
+    duration: 'Duration'
+    type: 'Type'

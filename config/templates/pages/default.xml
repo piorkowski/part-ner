@@ -7,23 +7,24 @@
 
     <view>pages/default</view>
     <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
-    <cacheLifetime>604800</cacheLifetime>
+    <cacheLifetime>2400</cacheLifetime>
 
     <meta>
-        <title lang="en">Default</title>
+        <title lang="pl">Strona standardowa</title>
+        <title lang="en">Default page</title>
         <title lang="de">Standard</title>
     </meta>
 
     <properties>
         <property name="title" type="text_line" mandatory="true">
             <meta>
+                <title lang="pl">Tytuł</title>
                 <title lang="en">Title</title>
                 <title lang="de">Titel</title>
             </meta>
             <params>
                 <param name="headline" value="true"/>
             </params>
-
             <tag name="sulu.rlp.part"/>
         </property>
 
@@ -33,15 +34,279 @@
                 <title lang="de">Adresse</title>
                 <title lang="pl">Adres</title>
             </meta>
-
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="article" type="text_editor">
+        <property name="subtitle" type="text_line">
             <meta>
-                <title lang="en">Article</title>
-                <title lang="de">Artikel</title>
+                <title lang="pl">Podtytuł</title>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
             </meta>
+        </property>
+
+        <property name="header_image" type="single_media_selection">
+            <meta>
+                <title lang="pl">Zdjęcie w nagłówku</title>
+                <title lang="en">Header image</title>
+                <title lang="de">Kopfzeilenbild</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
+        <property name="content" type="text_editor">
+            <meta>
+                <title lang="pl">Treść główna</title>
+                <title lang="en">Main content</title>
+                <title lang="de">Hauptinhalt</title>
+            </meta>
+            <tag name="sulu.search.field"/>
+        </property>
+
+        <!-- Sekcje treści -->
+        <property name="content_blocks" type="block">
+            <meta>
+                <title lang="pl">Bloki treści</title>
+                <title lang="en">Content blocks</title>
+                <title lang="de">Inhaltsblöcke</title>
+            </meta>
+
+            <types>
+                <type name="text_block">
+                    <meta>
+                        <title lang="pl">Blok tekstowy</title>
+                        <title lang="en">Text block</title>
+                        <title lang="de">Textblock</title>
+                    </meta>
+
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+
+                        <property name="text" type="text_editor">
+                            <meta>
+                                <title lang="pl">Treść</title>
+                                <title lang="en">Content</title>
+                                <title lang="de">Inhalt</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+
+                <type name="image_text">
+                    <meta>
+                        <title lang="pl">Obraz + tekst</title>
+                        <title lang="en">Image + text</title>
+                        <title lang="de">Bild + Text</title>
+                    </meta>
+
+                    <properties>
+                        <property name="image" type="single_media_selection">
+                            <meta>
+                                <title lang="pl">Obraz</title>
+                                <title lang="en">Image</title>
+                                <title lang="de">Bild</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                            </params>
+                        </property>
+
+                        <property name="image_position" type="select">
+                            <meta>
+                                <title lang="pl">Pozycja obrazu</title>
+                                <title lang="en">Image position</title>
+                                <title lang="de">Bildposition</title>
+                            </meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="left">
+                                        <meta>
+                                            <title lang="pl">Po lewej</title>
+                                            <title lang="en">Left</title>
+                                            <title lang="de">Links</title>
+                                        </meta>
+                                    </param>
+                                    <param name="right">
+                                        <meta>
+                                            <title lang="pl">Po prawej</title>
+                                            <title lang="en">Right</title>
+                                            <title lang="de">Rechts</title>
+                                        </meta>
+                                    </param>
+                                </param>
+                                <param name="default_value" value="left"/>
+                            </params>
+                        </property>
+
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+
+                        <property name="text" type="text_editor">
+                            <meta>
+                                <title lang="pl">Treść</title>
+                                <title lang="en">Content</title>
+                                <title lang="de">Inhalt</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+
+                <type name="cta_block">
+                    <meta>
+                        <title lang="pl">Blok CTA</title>
+                        <title lang="en">CTA block</title>
+                        <title lang="de">CTA-Block</title>
+                    </meta>
+
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+
+                        <property name="text" type="text_area">
+                            <meta>
+                                <title lang="pl">Tekst</title>
+                                <title lang="en">Text</title>
+                                <title lang="de">Text</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_text" type="text_line">
+                            <meta>
+                                <title lang="pl">Tekst przycisku</title>
+                                <title lang="en">Button text</title>
+                                <title lang="de">Button-Text</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_link" type="single_page_selection">
+                            <meta>
+                                <title lang="pl">Link przycisku</title>
+                                <title lang="en">Button link</title>
+                                <title lang="de">Button-Link</title>
+                            </meta>
+                        </property>
+
+                        <property name="background_color" type="select">
+                            <meta>
+                                <title lang="pl">Kolor tła</title>
+                                <title lang="en">Background color</title>
+                                <title lang="de">Hintergrundfarbe</title>
+                            </meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="light">
+                                        <meta>
+                                            <title lang="pl">Jasny</title>
+                                            <title lang="en">Light</title>
+                                            <title lang="de">Hell</title>
+                                        </meta>
+                                    </param>
+                                    <param name="dark">
+                                        <meta>
+                                            <title lang="pl">Ciemny</title>
+                                            <title lang="en">Dark</title>
+                                            <title lang="de">Dunkel</title>
+                                        </meta>
+                                    </param>
+                                </param>
+                                <param name="default_value" value="light"/>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+
+                <type name="features_grid">
+                    <meta>
+                        <title lang="pl">Siatka funkcji/cech</title>
+                        <title lang="en">Features grid</title>
+                        <title lang="de">Funktionsraster</title>
+                    </meta>
+
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="pl">Tytuł sekcji</title>
+                                <title lang="en">Section title</title>
+                                <title lang="de">Abschnittstitel</title>
+                            </meta>
+                        </property>
+
+                        <property name="features" type="block">
+                            <meta>
+                                <title lang="pl">Funkcje</title>
+                                <title lang="en">Features</title>
+                                <title lang="de">Funktionen</title>
+                            </meta>
+
+                            <types>
+                                <type name="feature">
+                                    <meta>
+                                        <title lang="pl">Funkcja</title>
+                                        <title lang="en">Feature</title>
+                                        <title lang="de">Funktion</title>
+                                    </meta>
+
+                                    <properties>
+                                        <property name="icon" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Ikona (klasa CSS)</title>
+                                                <title lang="en">Icon (CSS class)</title>
+                                                <title lang="de">Symbol (CSS-Klasse)</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="title" type="text_line">
+                                            <meta>
+                                                <title lang="pl">Tytuł</title>
+                                                <title lang="en">Title</title>
+                                                <title lang="de">Titel</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="description" type="text_area">
+                                            <meta>
+                                                <title lang="pl">Opis</title>
+                                                <title lang="en">Description</title>
+                                                <title lang="de">Beschreibung</title>
+                                            </meta>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <!-- Galeria obrazów -->
+        <property name="gallery" type="media_selection">
+            <meta>
+                <title lang="pl">Galeria zdjęć</title>
+                <title lang="en">Image gallery</title>
+                <title lang="de">Bildergalerie</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
         </property>
     </properties>
 </template>

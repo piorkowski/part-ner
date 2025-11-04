@@ -1,0 +1,16 @@
+cookies:
+  last_update: 'Ostatnia aktualizacja'
+  quick_nav: 'Szybka nawigacja'
+  how_to_manage: 'Jak zarządzać cookies'
+  browser_instructions: 'Instrukcje dla przeglądarek'
+  contact_us: 'Skontaktuj się z nami'
+  back_to_top: 'Wróć na górę'
+  first_party: 'Własne'
+  third_party: 'Zewnętrzne'
+  
+  table:
+    name: 'Nazwa'
+    purpose: 'Cel'
+    provider: 'Dostawca'
+    duration: 'Czas przechowywania'
+    type: 'Typ'

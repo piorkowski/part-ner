@@ -1,7 +1,279 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block content %}
-    <h1>{{ content.title }}</h1>
+    {# Header Section #}
+    {% if content.header_image %}
+        <section class="module bg-dark-60 page-header" data-background="{{ content.header_image.url }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <h1 class="module-title font-alt">{{ content.title }}</h1>
+                        {% if content.subtitle %}
+                            <div class="module-subtitle font-serif">{{ content.subtitle }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <section class="module">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h1 class="module-title font-alt text-center">{{ content.title }}</h1>
+                        {% if content.subtitle %}
+                            <div class="module-subtitle font-serif text-center">{{ content.subtitle }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
 
-    {{ content.article|raw }}
+    {# Main Content #}
+    {% if content.content %}
+        <section class="module">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="post-content">
+                            {{ content.content|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Content Blocks #}
+    {% if content.content_blocks %}
+        {% for block in content.content_blocks %}
+
+            {# Text Block #}
+            {% if block.type == 'text_block' %}
+                <section class="module">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                {% if block.title %}
+                                    <h2 class="module-title font-alt">{{ block.title }}</h2>
+                                {% endif %}
+                                <div class="module-text">
+                                    {{ block.text|raw }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {# Image + Text Block #}
+            {% if block.type == 'image_text' %}
+                <section class="module">
+                    <div class="container">
+                        <div class="row">
+                            {% if block.image_position == 'right' %}
+                                <div class="col-sm-6">
+                                    {% if block.title %}
+                                        <h2 class="module-title font-alt">{{ block.title }}</h2>
+                                    {% endif %}
+                                    <div class="module-text">
+                                        {{ block.text|raw }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    {% if block.image %}
+                                        <img src="{{ block.image.thumbnails['800x600'] ?? block.image.url }}" alt="{{ block.title }}" class="img-responsive">
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <div class="col-sm-6">
+                                    {% if block.image %}
+                                        <img src="{{ block.image.thumbnails['800x600'] ?? block.image.url }}" alt="{{ block.title }}" class="img-responsive">
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-6">
+                                    {% if block.title %}
+                                        <h2 class="module-title font-alt">{{ block.title }}</h2>
+                                    {% endif %}
+                                    <div class="module-text">
+                                        {{ block.text|raw }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {# CTA Block #}
+            {% if block.type == 'cta_block' %}
+                <section class="module {% if block.background_color == 'dark' %}bg-dark{% else %}bg-light{% endif %} p-t-80 p-b-80">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2 text-center">
+                                {% if block.title %}
+                                    <h2 class="module-title font-alt mb-30">{{ block.title }}</h2>
+                                {% endif %}
+                                {% if block.text %}
+                                    <p class="lead mb-30">{{ block.text|nl2br }}</p>
+                                {% endif %}
+                                {% if block.button_text and block.button_link %}
+                                    <a href="{{ sulu_content_path(block.button_link) }}" class="btn btn-lg btn-round {% if block.background_color == 'dark' %}btn-border-w{% else %}btn-border-d{% endif %}">
+                                        {{ block.button_text }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {# Features Grid #}
+            {% if block.type == 'features_grid' %}
+                <section class="module">
+                    <div class="container">
+                        {% if block.title %}
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3 text-center">
+                                    <h2 class="module-title font-alt mb-60">{{ block.title }}</h2>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if block.features %}
+                            <div class="row multi-columns-row">
+                                {% for feature in block.features %}
+                                    {% if feature.type == 'feature' %}
+                                        <div class="col-sm-6 col-md-4 col-lg-4">
+                                            <div class="alt-features-item">
+                                                {% if feature.icon %}
+                                                    <div class="alt-features-icon">
+                                                        <span class="{{ feature.icon }}"></span>
+                                                    </div>
+                                                {% endif %}
+                                                {% if feature.title %}
+                                                    <h3 class="alt-features-title font-alt">{{ feature.title }}</h3>
+                                                {% endif %}
+                                                {% if feature.description %}
+                                                    <p>{{ feature.description|nl2br }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </section>
+            {% endif %}
+
+            {% if not loop.last %}
+                <hr class="divider-w">
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {# Gallery Section #}
+    {% if content.gallery %}
+        <hr class="divider-w">
+        <section class="module pb-0" id="gallery">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 text-center">
+                        <h2 class="module-title font-alt">{{ 'default.gallery'|trans }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    {% for image in content.gallery %}
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <a class="gallery" href="{{ image.url }}">
+                                <img src="{{ image.thumbnails['400x400'] ?? image.url }}" alt="{{ image.title }}"/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            // Magnific Popup dla galerii
+            $('.gallery').magnificPopup({
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0,1]
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .post-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .post-content h2,
+        .post-content h3,
+        .post-content h4 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .post-content p {
+            margin-bottom: 20px;
+        }
+        .post-content ul,
+        .post-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        .module-text {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .alt-features-item {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .alt-features-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .alt-features-title {
+            margin-bottom: 15px;
+        }
+        .bg-light {
+            background: #f9f9f9;
+        }
+        #gallery .gallery {
+            display: block;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        #gallery .gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        #gallery .gallery:hover img {
+            transform: scale(1.05);
+        }
+    </style>
 {% endblock %}

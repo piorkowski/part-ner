@@ -1,0 +1,398 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {# Header Section #}
+    <section class="module bg-dark-60 faq-page-header" {% if content.header_image %}data-background="{{ content.header_image.url }}"{% endif %}>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <h1 class="module-title font-alt mb-0">{{ content.title }}</h1>
+                    {% if content.subtitle %}
+                        <div class="module-subtitle font-serif mt-20">{{ content.subtitle }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Introduction Text #}
+    {% if content.intro_text %}
+        <section class="module">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text-center">
+                        <div class="faq-intro">
+                            {{ content.intro_text|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="divider-w">
+    {% endif %}
+
+    {# Search Box #}
+    <section class="module pt-60 pb-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="faq-search-box">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" id="faqSearch" placeholder="{{ 'faq.search_placeholder'|trans }}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# FAQ Categories #}
+    {% if content.faq_categories %}
+        <section class="module pb-80">
+            <div class="container">
+                {% for category in content.faq_categories %}
+                    {% if category.type == 'category' %}
+                        <div class="row faq-category">
+                            <div class="col-sm-12">
+                                <div class="faq-category-header">
+                                    {% if category.category_icon %}
+                                        <span class="faq-category-icon {{ category.category_icon }}"></span>
+                                    {% endif %}
+                                    <h2 class="faq-category-title font-alt">{{ category.category_title }}</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if category.questions %}
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="panel-group" id="accordion-{{ loop.index }}">
+                                        {% for item in category.questions %}
+                                            {% if item.type == 'faq_item' %}
+                                                <div class="panel panel-default faq-item" data-question="{{ item.question|lower }}" data-answer="{{ item.answer|striptags|lower }}">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title font-alt">
+                                                            <a data-toggle="collapse" data-parent="#accordion-{{ loop.parent.loop.index }}" href="#collapse-{{ loop.parent.loop.index }}-{{ loop.index }}" class="collapsed">
+                                                                <span class="faq-number">{{ loop.index }}</span>
+                                                                {{ item.question }}
+                                                                <i class="fa fa-angle-down pull-right"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse-{{ loop.parent.loop.index }}-{{ loop.index }}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="faq-answer">
+                                                                {{ item.answer|raw }}
+                                                            </div>
+                                                            
+                                                            {% if item.helpful_links %}
+                                                                <div class="faq-helpful-links mt-30">
+                                                                    <strong>{{ 'faq.helpful_links'|trans }}:</strong>
+                                                                    <ul class="list-inline mt-10">
+                                                                        {% for link in item.helpful_links %}
+                                                                            <li>
+                                                                                <a href="{{ sulu_content_path(link.url) }}" class="btn btn-xs btn-border-d">
+                                                                                    {{ link.title }}
+                                                                                </a>
+                                                                            </li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            {% endif %}
+
+                                                            <div class="faq-helpful mt-30">
+                                                                <p class="text-muted">{{ 'faq.was_helpful'|trans }}</p>
+                                                                <button class="btn btn-xs btn-success faq-helpful-yes" data-question-id="{{ loop.parent.loop.index }}-{{ loop.index }}">
+                                                                    <i class="fa fa-thumbs-up"></i> {{ 'faq.yes'|trans }}
+                                                                </button>
+                                                                <button class="btn btn-xs btn-danger faq-helpful-no" data-question-id="{{ loop.parent.loop.index }}-{{ loop.index }}">
+                                                                    <i class="fa fa-thumbs-down"></i> {{ 'faq.no'|trans }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if not loop.last %}
+                                <hr class="divider-w mt-60 mb-60">
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {# Contact CTA Section #}
+    {% if content.show_contact_cta %}
+        <section class="module bg-dark-30 pt-80 pb-80" data-background="{{ asset('assets/images/section-bg.jpg') }}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text-center">
+                        {% if content.contact_title %}
+                            <h2 class="module-title font-alt mb-30">{{ content.contact_title }}</h2>
+                        {% endif %}
+                        {% if content.contact_text %}
+                            <p class="lead mb-40">{{ content.contact_text|nl2br }}</p>
+                        {% endif %}
+                        {% if content.contact_button_text and content.contact_button_link %}
+                            <a href="{{ sulu_content_path(content.contact_button_link) }}" class="btn btn-lg btn-round btn-border-w">
+                                {{ content.contact_button_text }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            // Search functionality
+            $('#faqSearch').on('keyup', function(){
+                var searchTerm = $(this).val().toLowerCase();
+                
+                if(searchTerm.length === 0) {
+                    $('.faq-item').show();
+                    $('.faq-category').show();
+                    return;
+                }
+                
+                $('.faq-item').each(function(){
+                    var question = $(this).data('question');
+                    var answer = $(this).data('answer');
+                    
+                    if(question.indexOf(searchTerm) !== -1 || answer.indexOf(searchTerm) !== -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                
+                // Hide categories with no visible items
+                $('.faq-category').each(function(){
+                    var visibleItems = $(this).next('.row').find('.faq-item:visible').length;
+                    if(visibleItems === 0) {
+                        $(this).hide();
+                        $(this).next('.row').hide();
+                        $(this).next().next('hr').hide();
+                    } else {
+                        $(this).show();
+                        $(this).next('.row').show();
+                        $(this).next().next('hr').show();
+                    }
+                });
+            });
+
+            // Helpful buttons
+            $('.faq-helpful-yes, .faq-helpful-no').on('click', function(){
+                var btn = $(this);
+                var helpful = btn.hasClass('faq-helpful-yes');
+                var questionId = btn.data('question-id');
+                
+                // You can send this to your backend
+                console.log('Question ' + questionId + ' was ' + (helpful ? 'helpful' : 'not helpful'));
+                
+                // Show thank you message
+                btn.closest('.faq-helpful').html('<p class="text-success"><i class="fa fa-check"></i> {{ 'faq.thank_you_feedback'|trans }}</p>');
+            });
+
+            // Accordion icon rotation
+            $('.panel-group').on('show.bs.collapse', function (e) {
+                $(e.target).prev('.panel-heading').find('.fa').removeClass('fa-angle-down').addClass('fa-angle-up');
+            });
+            
+            $('.panel-group').on('hide.bs.collapse', function (e) {
+                $(e.target).prev('.panel-heading').find('.fa').removeClass('fa-angle-up').addClass('fa-angle-down');
+            });
+
+            // Scroll to hash on page load
+            if(window.location.hash) {
+                setTimeout(function(){
+                    var hash = window.location.hash;
+                    if($(hash).length) {
+                        $(hash).collapse('show');
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top - 100
+                        }, 500);
+                    }
+                }, 100);
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .faq-intro {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .faq-search-box {
+            margin-bottom: 20px;
+        }
+
+        .faq-search-box .form-control {
+            border-radius: 30px 0 0 30px;
+            border-right: none;
+            padding: 20px 30px;
+            font-size: 16px;
+        }
+
+        .faq-search-box .btn {
+            border-radius: 0 30px 30px 0;
+            padding: 20px 30px;
+        }
+
+        .faq-category {
+            margin-bottom: 40px;
+        }
+
+        .faq-category-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .faq-category-icon {
+            font-size: 48px;
+            color: #667eea;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .faq-category-title {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .faq-item {
+            border: 1px solid #e5e5e5;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .faq-item .panel-heading {
+            background: #fff;
+            border-bottom: none;
+            padding: 0;
+            border-radius: 5px;
+        }
+
+        .faq-item .panel-title {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .faq-item .panel-title a {
+            display: block;
+            padding: 20px 25px;
+            color: #333;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .faq-item .panel-title a:hover {
+            color: #667eea;
+        }
+
+        .faq-item .panel-title a .fa {
+            transition: transform 0.3s ease;
+            color: #667eea;
+        }
+
+        .faq-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #667eea;
+            color: #fff;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .faq-item .panel-body {
+            padding: 25px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .faq-answer {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+
+        .faq-answer ul,
+        .faq-answer ol {
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+
+        .faq-helpful-links strong {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .faq-helpful {
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .faq-helpful p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .faq-helpful .btn {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 767px) {
+            .faq-category-title {
+                font-size: 22px;
+            }
+
+            .faq-item .panel-title {
+                font-size: 14px;
+            }
+
+            .faq-number {
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                font-size: 12px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+{% endblock %}

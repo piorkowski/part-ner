@@ -1,0 +1,201 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>faq</key>
+
+    <view>pages/faq</view>
+    <controller>Sulu\Bundle\WebsiteBundle\Controller\DefaultController::indexAction</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="pl">FAQ - Najczęściej zadawane pytania</title>
+        <title lang="en">FAQ - Frequently Asked Questions</title>
+        <title lang="de">FAQ - Häufig gestellte Fragen</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="pl">Tytuł</title>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="resource_locator" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+                <title lang="pl">Adres</title>
+            </meta>
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="pl">Podtytuł</title>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
+        <property name="header_image" type="single_media_selection">
+            <meta>
+                <title lang="pl">Zdjęcie w nagłówku</title>
+                <title lang="en">Header image</title>
+                <title lang="de">Kopfzeilenbild</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
+        <property name="intro_text" type="text_editor">
+            <meta>
+                <title lang="pl">Tekst wprowadzający</title>
+                <title lang="en">Introduction text</title>
+                <title lang="de">Einführungstext</title>
+            </meta>
+        </property>
+
+        <!-- Kategorie FAQ -->
+        <property name="faq_categories" type="block">
+            <meta>
+                <title lang="pl">Kategorie FAQ</title>
+                <title lang="en">FAQ Categories</title>
+                <title lang="de">FAQ-Kategorien</title>
+            </meta>
+
+            <types>
+                <type name="category">
+                    <meta>
+                        <title lang="pl">Kategoria</title>
+                        <title lang="en">Category</title>
+                        <title lang="de">Kategorie</title>
+                    </meta>
+
+                    <properties>
+                        <property name="category_title" type="text_line" mandatory="true">
+                            <meta>
+                                <title lang="pl">Nazwa kategorii</title>
+                                <title lang="en">Category name</title>
+                                <title lang="de">Kategoriename</title>
+                            </meta>
+                        </property>
+
+                        <property name="category_icon" type="text_line">
+                            <meta>
+                                <title lang="pl">Ikona kategorii (klasa CSS)</title>
+                                <title lang="en">Category icon (CSS class)</title>
+                                <title lang="de">Kategoriesymbol (CSS-Klasse)</title>
+                            </meta>
+                        </property>
+
+                        <property name="questions" type="block">
+                            <meta>
+                                <title lang="pl">Pytania i odpowiedzi</title>
+                                <title lang="en">Questions and answers</title>
+                                <title lang="de">Fragen und Antworten</title>
+                            </meta>
+
+                            <types>
+                                <type name="faq_item">
+                                    <meta>
+                                        <title lang="pl">Pytanie</title>
+                                        <title lang="en">Question</title>
+                                        <title lang="de">Frage</title>
+                                    </meta>
+
+                                    <properties>
+                                        <property name="question" type="text_line" mandatory="true">
+                                            <meta>
+                                                <title lang="pl">Pytanie</title>
+                                                <title lang="en">Question</title>
+                                                <title lang="de">Frage</title>
+                                            </meta>
+                                            <tag name="sulu.search.field"/>
+                                        </property>
+
+                                        <property name="answer" type="text_editor" mandatory="true">
+                                            <meta>
+                                                <title lang="pl">Odpowiedź</title>
+                                                <title lang="en">Answer</title>
+                                                <title lang="de">Antwort</title>
+                                            </meta>
+                                            <tag name="sulu.search.field"/>
+                                        </property>
+
+                                        <property name="helpful_links" type="page_selection">
+                                            <meta>
+                                                <title lang="pl">Przydatne linki</title>
+                                                <title lang="en">Helpful links</title>
+                                                <title lang="de">Hilfreiche Links</title>
+                                            </meta>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+
+        <!-- Contact CTA Section -->
+        <section name="contact_section">
+            <meta>
+                <title lang="pl">Sekcja kontaktowa</title>
+                <title lang="en">Contact section</title>
+                <title lang="de">Kontaktbereich</title>
+            </meta>
+
+            <properties>
+                <property name="show_contact_cta" type="checkbox">
+                    <meta>
+                        <title lang="pl">Pokaż sekcję kontaktową</title>
+                        <title lang="en">Show contact section</title>
+                        <title lang="de">Kontaktbereich anzeigen</title>
+                    </meta>
+                </property>
+
+                <property name="contact_title" type="text_line">
+                    <meta>
+                        <title lang="pl">Tytuł sekcji kontaktowej</title>
+                        <title lang="en">Contact section title</title>
+                        <title lang="de">Titel des Kontaktbereichs</title>
+                    </meta>
+                </property>
+
+                <property name="contact_text" type="text_area">
+                    <meta>
+                        <title lang="pl">Tekst sekcji kontaktowej</title>
+                        <title lang="en">Contact section text</title>
+                        <title lang="de">Text des Kontaktbereichs</title>
+                    </meta>
+                </property>
+
+                <property name="contact_button_text" type="text_line">
+                    <meta>
+                        <title lang="pl">Tekst przycisku kontaktowego</title>
+                        <title lang="en">Contact button text</title>
+                        <title lang="de">Kontakt-Button-Text</title>
+                    </meta>
+                </property>
+
+                <property name="contact_button_link" type="single_page_selection">
+                    <meta>
+                        <title lang="pl">Link przycisku kontaktowego</title>
+                        <title lang="en">Contact button link</title>
+                        <title lang="de">Kontakt-Button-Link</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

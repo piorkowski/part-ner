@@ -1,0 +1,453 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {# Header Section #}
+    <section class="module pt-80 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <h1 class="module-title font-alt mb-20">{{ content.title }}</h1>
+                    {% if content.last_update %}
+                        <p class="text-muted">
+                            <i class="fa fa-calendar"></i> 
+                            {{ 'cookies.last_update'|trans }}: {{ content.last_update|date('d.m.Y') }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Introduction #}
+    {% if content.intro_text %}
+        <section class="module pt-0 pb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="cookies-intro">
+                            {{ content.intro_text|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Quick Navigation #}
+    {% if content.cookie_categories %}
+        <section class="module pt-0 pb-40 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="cookies-nav">
+                            <h3 class="font-alt mb-20">{{ 'cookies.quick_nav'|trans }}</h3>
+                            <ul class="list-inline">
+                                {% for category in content.cookie_categories %}
+                                    {% if category.type == 'category' %}
+                                        <li>
+                                            <a href="#category-{{ loop.index }}" class="btn btn-sm btn-border-d">
+                                                {{ category.category_name }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                <li>
+                                    <a href="#manage-cookies" class="btn btn-sm btn-border-d">
+                                        {{ 'cookies.how_to_manage'|trans }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Cookie Categories #}
+    {% if content.cookie_categories %}
+        <section class="module">
+            <div class="container">
+                {% for category in content.cookie_categories %}
+                    {% if category.type == 'category' %}
+                        <div class="row cookie-category" id="category-{{ loop.index }}">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div class="cookie-category-header">
+                                    <h2 class="font-alt mb-20">
+                                        <span class="cookie-category-number">{{ loop.index }}</span>
+                                        {{ category.category_name }}
+                                    </h2>
+                                    {% if category.category_description %}
+                                        <div class="cookie-category-description">
+                                            {{ category.category_description|raw }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                {% if category.cookies %}
+                                    <div class="cookie-table-wrapper">
+                                        <table class="table table-hover cookie-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'cookies.table.name'|trans }}</th>
+                                                    <th>{{ 'cookies.table.purpose'|trans }}</th>
+                                                    <th>{{ 'cookies.table.provider'|trans }}</th>
+                                                    <th>{{ 'cookies.table.duration'|trans }}</th>
+                                                    <th>{{ 'cookies.table.type'|trans }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for cookie in category.cookies %}
+                                                    {% if cookie.type == 'cookie' %}
+                                                        <tr>
+                                                            <td><code>{{ cookie.cookie_name }}</code></td>
+                                                            <td>{{ cookie.cookie_purpose }}</td>
+                                                            <td>{{ cookie.cookie_provider|default('-') }}</td>
+                                                            <td>{{ cookie.cookie_duration|default('-') }}</td>
+                                                            <td>
+                                                                {% if cookie.cookie_type == 'first_party' %}
+                                                                    <span class="label label-primary">{{ 'cookies.first_party'|trans }}</span>
+                                                                {% elseif cookie.cookie_type == 'third_party' %}
+                                                                    <span class="label label-info">{{ 'cookies.third_party'|trans }}</span>
+                                                                {% else %}
+                                                                    -
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if not loop.last %}
+                            <hr class="divider-w mt-60 mb-60">
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {# How to Manage Cookies #}
+    {% if content.how_to_manage %}
+        <hr class="divider-w">
+        <section class="module" id="manage-cookies">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h2 class="module-title font-alt mb-40">{{ 'cookies.how_to_manage'|trans }}</h2>
+                        <div class="cookies-manage-content">
+                            {{ content.how_to_manage|raw }}
+                        </div>
+
+                        {% if content.browser_links %}
+                            <div class="browser-links mt-40">
+                                <h3 class="font-alt mb-30">{{ 'cookies.browser_instructions'|trans }}</h3>
+                                <div class="row">
+                                    {% for browser in content.browser_links %}
+                                        {% if browser.type == 'browser' %}
+                                            <div class="col-sm-6 col-md-4 mb-20">
+                                                <a href="{{ browser.browser_url }}" target="_blank" rel="noopener" class="browser-link">
+                                                    <i class="fa fa-external-link"></i> {{ browser.browser_name }}
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# More Information #}
+    {% if content.more_info %}
+        <section class="module pt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="cookies-more-info">
+                            {{ content.more_info|raw }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Contact Section #}
+    {% if content.contact_text %}
+        <section class="module bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text-center">
+                        <div class="cookies-contact">
+                            {{ content.contact_text|raw }}
+                            {% if content.contact_page_link %}
+                                <div class="mt-30">
+                                    <a href="{{ sulu_content_path(content.contact_page_link) }}" class="btn btn-lg btn-round btn-d">
+                                        {{ 'cookies.contact_us'|trans }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Back to Top #}
+    <div class="text-center pt-40 pb-40">
+        <a href="#totop" class="btn btn-border-d btn-round">
+            <i class="fa fa-angle-up"></i> {{ 'cookies.back_to_top'|trans }}
+        </a>
+    </div>
+
+{% endblock %}
+
+{% block style %}
+    <style>
+        .cookies-intro {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .cookies-nav {
+            padding: 30px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .cookies-nav h3 {
+            color: #333;
+        }
+
+        .cookies-nav .list-inline li {
+            margin-bottom: 10px;
+        }
+
+        .cookie-category {
+            margin-bottom: 40px;
+        }
+
+        .cookie-category-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .cookie-category-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #667eea;
+            color: #fff;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .cookie-category-description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .cookie-table-wrapper {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        .cookie-table {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+        }
+
+        .cookie-table thead {
+            background: #f9f9f9;
+        }
+
+        .cookie-table th {
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #667eea !important;
+            padding: 15px 12px;
+            font-size: 14px;
+        }
+
+        .cookie-table td {
+            padding: 15px 12px;
+            vertical-align: middle;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cookie-table code {
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 3px;
+            color: #667eea;
+            font-size: 13px;
+        }
+
+        .cookie-table .label {
+            font-size: 11px;
+            padding: 4px 10px;
+            font-weight: 500;
+        }
+
+        .cookie-table .label-primary {
+            background: #667eea;
+        }
+
+        .cookie-table .label-info {
+            background: #3498db;
+        }
+
+        .cookie-table tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .cookies-manage-content,
+        .cookies-more-info {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .cookies-manage-content h3,
+        .cookies-manage-content h4,
+        .cookies-more-info h3,
+        .cookies-more-info h4 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .cookies-manage-content ul,
+        .cookies-manage-content ol,
+        .cookies-more-info ul,
+        .cookies-more-info ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .browser-links {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        .browser-link {
+            display: block;
+            padding: 15px 20px;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .browser-link:hover {
+            border-color: #667eea;
+            color: #667eea;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+        }
+
+        .browser-link i {
+            margin-right: 10px;
+        }
+
+        .cookies-contact {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 767px) {
+            .cookie-table {
+                font-size: 12px;
+            }
+
+            .cookie-table th,
+            .cookie-table td {
+                padding: 10px 8px;
+            }
+
+            .cookie-category-number {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 16px;
+            }
+
+            .cookies-nav {
+                padding: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Highlight animation */
+        .cookie-category:target .cookie-category-header {
+            animation: highlight 2s ease;
+        }
+
+        @keyframes highlight {
+            0% { background: rgba(102, 126, 234, 0.1); }
+            100% { background: transparent; }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            // Smooth scroll for navigation
+            $('a[href^="#"]').on('click', function(e) {
+                var target = $(this.hash);
+                if (target.length) {
+                    e.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 80
+                    }, 800);
+                }
+            });
+
+            // Highlight active category on scroll
+            $(window).on('scroll', function() {
+                var scrollPos = $(window).scrollTop() + 100;
+                
+                $('.cookie-category').each(function() {
+                    var categoryTop = $(this).offset().top;
+                    var categoryBottom = categoryTop + $(this).outerHeight();
+                    var categoryId = $(this).attr('id');
+                    
+                    if (scrollPos >= categoryTop && scrollPos < categoryBottom) {
+                        $('.cookies-nav a[href="#' + categoryId + '"]').addClass('active');
+                    } else {
+                        $('.cookies-nav a[href="#' + categoryId + '"]').removeClass('active');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

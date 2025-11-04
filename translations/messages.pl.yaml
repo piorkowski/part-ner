@@ -107,3 +107,14 @@ email:
     company: 'Firma'
     message: 'Wiadomość'
     sent_from_website: 'Wysłane ze strony internetowej'
+
+faq:
+    search_placeholder: 'Wpisz słowo kluczowe aby wyszukać pytanie...'
+    helpful_links: 'Przydatne linki'
+    was_helpful: 'Czy ta odpowiedź była pomocna?'
+    yes: 'Tak'
+    no: 'Nie'
+    thank_you_feedback: 'Dziękujemy za opinię!'
+
+default:
+    gallery: 'Galeria'

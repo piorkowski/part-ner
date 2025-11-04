@@ -104,3 +104,14 @@ email:
     company: "Company"
     message: "Message"
     sent_from_website: "Sent from the website"
+
+faq:
+    search_placeholder: 'Type a keyword to search questions...'
+    helpful_links: 'Helpful links'
+    was_helpful: 'Was this answer helpful?'
+    yes: 'Yes'
+    no: 'No'
+    thank_you_feedback: 'Thank you for your feedback!'
+
+default:
+    gallery: 'Gallery'

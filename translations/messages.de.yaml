@@ -105,3 +105,14 @@ email:
     company: "Firma"
     message: "Nachricht"
     sent_from_website: "Von der Website gesendet"
+
+faq:
+    search_placeholder: 'Geben Sie ein Stichwort ein, um Fragen zu suchen...'
+    helpful_links: 'Hilfreiche Links'
+    was_helpful: 'War diese Antwort hilfreich?'
+    yes: 'Ja'
+    no: 'Nein'
+    thank_you_feedback: 'Vielen Dank für Ihr Feedback!'
+
+default:
+    gallery: 'Galerie'
