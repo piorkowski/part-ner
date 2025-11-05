@@ -141,7 +141,7 @@
                                             <tr>
                                                 <td>
                                                     {% if block.document_type %}
-                                                        {{ ('document_type.' ~ block.document_type)|trans }}
+                                                        {{ ('document_type.' ~ block.document_type|first)|trans }}
                                                     {% else %}
                                                         {{ 'product.document_other'|trans }}
                                                     {% endif %}
