@@ -1,0 +1,381 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if query %}
+        {{ 'search.results_for'|trans }}: {{ query }} - Part-ner
+    {% else %}
+        {{ 'search.title'|trans }} - Part-ner
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section class="module pt-80 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <h1 class="module-title font-alt mb-30">
+                        {% if query %}
+                            {{ 'search.results_for'|trans }}: <span class="search-query">"{{ query }}"</span>
+                        {% else %}
+                            {{ 'search.title'|trans }}
+                        {% endif %}
+                    </h1>
+                    
+                    {% if query %}
+                        <p class="lead">
+                            {{ 'search.found'|trans }} <strong>{{ totalHits }}</strong> {{ 'search.results'|trans }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="module pt-0 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    {# Search Form #}
+                    <form action="{{ path('website_search') }}" method="get" class="search-page-form">
+                        <div class="input-group input-group-lg">
+                            <input type="text" 
+                                   name="q" 
+                                   class="form-control" 
+                                   placeholder="{{ 'search.placeholder'|trans }}"
+                                   value="{{ query }}"
+                                   autofocus>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="ti-search"></i> {{ 'search.search_button'|trans|default('Szukaj') }}
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if query %}
+        {% if results|length > 0 %}
+            <hr class="divider-w">
+            
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            {# Results Info #}
+                            <div class="search-results-info mb-40">
+                                <p class="text-muted">
+                                    {{ 'search.showing'|trans }} 
+                                    <strong>{{ (currentPage - 1) * resultsPerPage + 1 }}</strong> - 
+                                    <strong>{{ min(currentPage * resultsPerPage, totalHits) }}</strong> 
+                                    {{ 'search.of'|trans }} 
+                                    <strong>{{ totalHits }}</strong> 
+                                    {{ 'search.results'|trans }}
+                                </p>
+                            </div>
+
+                            {# Search Results #}
+                            <div class="search-results">
+                                {% for result in results %}
+                                    <div class="search-result-item">
+                                        {% if result.imageUrl %}
+                                            <div class="search-result-image">
+                                                <a href="{{ result.url }}">
+                                                    <img src="{{ result.imageUrl }}" alt="{{ result.title }}">
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <div class="search-result-content">
+                                            <h3 class="search-result-title">
+                                                <a href="{{ result.url }}">{{ result.title }}</a>
+                                            </h3>
+                                            
+                                            <div class="search-result-url">
+                                                <i class="ti-link"></i> {{ result.url }}
+                                            </div>
+                                            
+                                            {% if result.description %}
+                                                <div class="search-result-description">
+                                                    {{ result.description|raw }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            {# Pagination #}
+                            {% if totalPages > 1 %}
+                                <div class="pagination-wrap mt-60">
+                                    <nav aria-label="Search results pagination">
+                                        <ul class="pagination">
+                                            {# Previous #}
+                                            {% if currentPage > 1 %}
+                                                <li>
+                                                    <a href="{{ path('website_search', {q: query, page: currentPage - 1}) }}" 
+                                                       aria-label="{{ 'search.previous'|trans }}">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>&laquo;</span>
+                                                </li>
+                                            {% endif %}
+
+                                            {# Pages #}
+                                            {% set startPage = max(1, currentPage - 2) %}
+                                            {% set endPage = min(totalPages, currentPage + 2) %}
+                                            
+                                            {% if startPage > 1 %}
+                                                <li>
+                                                    <a href="{{ path('website_search', {q: query, page: 1}) }}">1</a>
+                                                </li>
+                                                {% if startPage > 2 %}
+                                                    <li class="disabled"><span>...</span></li>
+                                                {% endif %}
+                                            {% endif %}
+
+                                            {% for page in startPage..endPage %}
+                                                <li class="{{ page == currentPage ? 'active' : '' }}">
+                                                    <a href="{{ path('website_search', {q: query, page: page}) }}">
+                                                        {{ page }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+
+                                            {% if endPage < totalPages %}
+                                                {% if endPage < totalPages - 1 %}
+                                                    <li class="disabled"><span>...</span></li>
+                                                {% endif %}
+                                                <li>
+                                                    <a href="{{ path('website_search', {q: query, page: totalPages}) }}">
+                                                        {{ totalPages }}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+                                            {# Next #}
+                                            {% if currentPage < totalPages %}
+                                                <li>
+                                                    <a href="{{ path('website_search', {q: query, page: currentPage + 1}) }}" 
+                                                       aria-label="{{ 'search.next'|trans }}">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            {% else %}
+                                                <li class="disabled">
+                                                    <span>&raquo;</span>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            {# No Results #}
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 text-center">
+                            <div class="search-no-results">
+                                <i class="ti-search" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                                <h3 class="font-alt mb-20">{{ 'search.no_results'|trans }}</h3>
+                                <p class="lead mb-30">{{ 'search.no_results_text'|trans|default('Spróbuj użyć innych słów kluczowych lub sprawdź pisownię.') }}</p>
+                                
+                                <div class="search-suggestions">
+                                    <h4 class="font-alt mb-20">{{ 'search.suggestions'|trans|default('Sugestie:') }}</h4>
+                                    <ul class="text-left" style="display: inline-block;">
+                                        <li>{{ 'search.suggestion_1'|trans|default('Spróbuj bardziej ogólnych słów') }}</li>
+                                        <li>{{ 'search.suggestion_2'|trans|default('Sprawdź pisownię słów kluczowych') }}</li>
+                                        <li>{{ 'search.suggestion_3'|trans|default('Użyj synonimy lub podobnych terminów') }}</li>
+                                        <li>{{ 'search.suggestion_4'|trans|default('Użyj mniej słów kluczowych') }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% else %}
+        {# No Query Entered #}
+        <section class="module">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 text-center">
+                        <i class="ti-search" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                        <p class="lead">{{ 'search.enter_query'|trans|default('Wpisz słowa kluczowe, aby rozpocząć wyszukiwanie.') }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block style %}
+    <style>
+        .search-query {
+            color: #667eea;
+        }
+
+        .search-page-form {
+            margin-bottom: 40px;
+        }
+
+        .search-page-form .form-control {
+            border-radius: 30px 0 0 30px;
+            border-right: none;
+            padding: 20px 25px;
+            font-size: 16px;
+            height: auto;
+        }
+
+        .search-page-form .btn {
+            border-radius: 0 30px 30px 0;
+            padding: 20px 30px;
+            font-size: 16px;
+            height: auto;
+        }
+
+        .search-results-info {
+            padding: 15px 20px;
+            background: #f9f9f9;
+            border-left: 3px solid #667eea;
+            border-radius: 3px;
+        }
+
+        .search-results-info p {
+            margin: 0;
+        }
+
+        .search-result-item {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            gap: 20px;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .search-result-image {
+            flex-shrink: 0;
+            width: 150px;
+        }
+
+        .search-result-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .search-result-content {
+            flex: 1;
+        }
+
+        .search-result-title {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+
+        .search-result-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .search-result-title a:hover {
+            color: #667eea;
+        }
+
+        .search-result-url {
+            color: #667eea;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .search-result-url i {
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .search-result-description {
+            color: #666;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .search-result-description mark {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .search-no-results,
+        .search-suggestions {
+            padding: 40px 20px;
+        }
+
+        .pagination-wrap {
+            text-align: center;
+        }
+
+        .pagination > li > a,
+        .pagination > li > span {
+            color: #333;
+            border: 1px solid #e5e5e5;
+            margin: 0 3px;
+            border-radius: 3px;
+        }
+
+        .pagination > li > a:hover {
+            background: #667eea;
+            border-color: #667eea;
+            color: #fff;
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > span {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .pagination > .disabled > span {
+            background: #f9f9f9;
+            color: #999;
+        }
+
+        @media (max-width: 767px) {
+            .search-result-item {
+                flex-direction: column;
+            }
+
+            .search-result-image {
+                width: 100%;
+            }
+
+            .search-result-image img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .search-result-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+{% endblock %}
