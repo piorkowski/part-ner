@@ -100,13 +100,13 @@
                 </button>
                 <a class="navbar-brand" href="{{ sulu_content_root_path() }}" aria-label="Homepage">
                     <img src="{{ asset('assets/images/logo/logo-dark.svg') }}" alt="Partner" class="logo-dark"
-                         width="100px"/>
+                         width="150px"/>
                     <img src="{{ asset('assets/images/logo/logo-light.svg') }}" alt="Partner" class="logo-light"
-                         width="100px"/>
+                         width="150px"/>
                 </a>
             </div>
 
-            <div class="collapse navbar-collapse" id="custom-collapse">
+            <div class="collapse navbar-collapse" id="custom-collapse" style="margin-top: 10px; margin-bottom: 10px;">
                 <ul class="nav navbar-nav navbar-right">
                     {% for item in sulu_navigation_root_tree('main', 2) %}
                         <li class="{% if item.children|length %}dropdown{% endif %}">
